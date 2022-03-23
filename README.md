@@ -1,5 +1,5 @@
 ## Park Simulator
-Simulates a Park and locations within it.
+Simulates a Park and the locations within it.
 
 What user stories were completely during iteration 1? 
 
