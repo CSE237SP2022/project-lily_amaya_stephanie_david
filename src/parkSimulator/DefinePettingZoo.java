@@ -30,7 +30,7 @@ public class DefinePettingZoo extends Location{
 		if(userInput.equals("options")) {
 			listOptions();
 		}
-		else if(userInput.equals("leave")) {
+		else if(userInput.equals("leave petting zoo")) {
 			userWantsToLeave = true;
 		}
 		else if(userInput.equals("pet bunny")) {
