@@ -22,13 +22,13 @@ public class DefineGarden extends Location {
 		System.out.println("Welcome to the " + gardenName + "!");
 		initializeHashmap();
 		prompt();
-		exitGarden();
 	}
 	//option of adding a condition to the flowers where watering and fertilizing them increases the condition
 	
 	public void prompt() {
-		System.out.println("You can plant and pick flowers! You can check the status of your garden typing status and exit back the main menu by typing exit");
+		System.out.println("You can plant and pick flowers, and you can use status to check the status of your garden");
 		System.out.println("What would you like to do?");
+		String promptInput = gardenUserInput.nextLine();
 	}
 	
 	
@@ -44,11 +44,5 @@ public class DefineGarden extends Location {
 	    System.out.println(flowersInGarden);
 	}
 	
-	public void exitGarden () {
-		String inputUser = gardenUserInput.nextLine();
-		if (inputUser.equals("exit")) {
-			returnToParkEntrance();
-		}
-	}
 	
 }
