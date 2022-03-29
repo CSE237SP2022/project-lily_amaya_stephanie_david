@@ -23,7 +23,7 @@ public class DefineGarden extends Location {
 		System.out.println("Welcome to the " + gardenName + "!");
 		initializeHashmap();
 		prompt();
-		printFlowerHashMap();
+			printFlowerHashMap();
 	}
 	//option of adding a condition to the flowers where watering and fertilizing them increases the condition
 	
