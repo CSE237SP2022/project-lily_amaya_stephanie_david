@@ -59,11 +59,11 @@ public class Park {
 				message = "Where would you like to go next??";
 
 			}
-			else if(locationInputString.equals("pool")) {
-				DefinePool pool = new DefinePool("Pool");
-				pool.poolSimulator();
-				message = "Where would you like to go next?";
-			}
+//			else if(locationInputString.equals("pool")) {
+//				DefinePool pool = new DefinePool("Pool");
+//				pool.poolSimulator();
+//				message = "Where would you like to go next?";
+//			}
 			else {
 				message = "Invalid location. Please enter a valid location.";
 			}
