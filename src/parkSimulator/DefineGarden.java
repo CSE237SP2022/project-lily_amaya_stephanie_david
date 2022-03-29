@@ -1,5 +1,6 @@
 package parkSimulator;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class DefineGarden extends Location {
@@ -7,14 +8,14 @@ public class DefineGarden extends Location {
 	private String gardenName;
 	private int numberOfFlowersInHashmap;
 	private Scanner gardenUserInput;
-	private HashMap<String,Integer> flowersInGarden;
+	private Map<String,Integer> flowersInGarden;
 	
 	public DefineGarden(String name) {
 		super(name);
-		gardenName = "Botanical Gardens";
-		Scanner gardenUserInput = new Scanner(System.in);
-		numberOfFlowersInHashmap = 0;
-		HashMap<String,Integer> flowersInGarden = new HashMap<String, Integer>();
+		this.gardenName = "Botanical Gardens";
+		this.gardenUserInput = new Scanner(System.in);
+		this.numberOfFlowersInHashmap = 0;
+		this.flowersInGarden = new HashMap<String, Integer>();
 		
 	}
 	
@@ -22,6 +23,7 @@ public class DefineGarden extends Location {
 		System.out.println("Welcome to the " + gardenName + "!");
 		initializeHashmap();
 		prompt();
+		printFlowerHashMap();
 	}
 	//option of adding a condition to the flowers where watering and fertilizing them increases the condition
 	
@@ -40,9 +42,10 @@ public class DefineGarden extends Location {
 		flowersInGarden.put("Begonias", 8);
 	}
 	
-	public void printflowerHashMap () {
+	public void printFlowerHashMap () {
 	    System.out.println(flowersInGarden);
 	}
+	
 	
 	
 }
