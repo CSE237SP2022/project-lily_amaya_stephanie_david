@@ -14,15 +14,20 @@ public class DefineGarden extends Location {
 		this.gardenName = "Botanical Gardens";
 		this.gardenUserInput = new Scanner(System.in);
 		this.numberOfFlowersInHashmap = 0;
-		this.flowersInGarden = new HashMap<String, Integer>();
+		this.flowersInGarden = new HashMap<String, Integer>() {{
+			put("Roses", 4);
+			put("Dandalions", 6);
+			put("Sunflowers", 10);
+			put("Marigolds", 3);
+			put("Begonias", 8);
+		}};
 		
 	}
 	
 	public void gardenSimulator() {
 		System.out.println("Welcome to the " + gardenName + "!");
-		initializeHashmap();
 		prompt();
-			printFlowerHashMap();
+		printFlowerHashMap();
 	}
 	//option of adding a condition to the flowers where watering and fertilizing them increases the condition
 	
@@ -32,15 +37,7 @@ public class DefineGarden extends Location {
 		String promptInput = gardenUserInput.nextLine();
 	}
 	
-	
-	public void initializeHashmap() {
-		flowersInGarden.put("Roses", 4);
-		flowersInGarden.put("Dandalions", 6);
-		flowersInGarden.put("Sunflowers", 10);
-		flowersInGarden.put("Marigolds", 3);
-		flowersInGarden.put("Begonias", 8);
-	}
-	
+
 	public void printFlowerHashMap () {
 	    System.out.println(flowersInGarden);
 	}
