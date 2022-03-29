@@ -1,5 +1,6 @@
 package parkSimulator;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class DefineGarden extends Location {
@@ -7,14 +8,14 @@ public class DefineGarden extends Location {
 	private String gardenName;
 	private int numberOfFlowersInHashmap;
 	private Scanner gardenUserInput;
-	private HashMap<String,Integer> flowersInGarden;
+	private Map<String,Integer> flowersInGarden;
 	
 	public DefineGarden(String name) {
 		super(name);
-		gardenName = "Botanical Gardens";
-		Scanner gardenUserInput = new Scanner(System.in);
-		numberOfFlowersInHashmap = 0;
-		HashMap<String,Integer> flowersInGarden = new HashMap<String, Integer>();
+		this.gardenName = "Botanical Gardens";
+		this.gardenUserInput = new Scanner(System.in);
+		this.numberOfFlowersInHashmap = 0;
+		this.flowersInGarden = new HashMap<String, Integer>();
 		
 	}
 	
@@ -22,13 +23,14 @@ public class DefineGarden extends Location {
 		System.out.println("Welcome to the " + gardenName + "!");
 		initializeHashmap();
 		prompt();
-		exitGarden();
+			printFlowerHashMap();
 	}
 	//option of adding a condition to the flowers where watering and fertilizing them increases the condition
 	
 	public void prompt() {
-		System.out.println("You can plant and pick flowers! You can check the status of your garden typing status and exit back the main menu by typing exit");
+		System.out.println("You can plant and pick flowers, and you can use status to check the status of your garden");
 		System.out.println("What would you like to do?");
+		String promptInput = gardenUserInput.nextLine();
 	}
 	
 	
@@ -40,14 +42,7 @@ public class DefineGarden extends Location {
 		flowersInGarden.put("Begonias", 8);
 	}
 	
-	public void printflowerHashMap () {
+	public void printFlowerHashMap () {
 	    System.out.println(flowersInGarden);
-	}
-	
-	public void exitGarden () {
-		String inputUser = gardenUserInput.nextLine();
-		if (inputUser.equals("exit")) {
-			returnToParkEntrance();
-		}
-	}
+	}	
 }
