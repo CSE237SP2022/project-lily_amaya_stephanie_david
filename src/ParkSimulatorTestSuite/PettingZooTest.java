@@ -1,4 +1,4 @@
-package parkTests;
+package ParkSimulatorTestSuite;
 
 import static org.junit.jupiter.api.Assertions.*;
 
