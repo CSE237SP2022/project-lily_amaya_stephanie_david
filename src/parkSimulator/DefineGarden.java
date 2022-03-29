@@ -37,6 +37,7 @@ public class DefineGarden extends Location {
 		String promptInput = gardenUserInput.nextLine();
 	}
 	
+	
 
 	public void printFlowerHashMap () {
 	    System.out.println(flowersInGarden);
