@@ -1,6 +1,5 @@
 package parkSimulator;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class DefineGarden extends Location {
@@ -8,7 +7,7 @@ public class DefineGarden extends Location {
 	private String gardenName;
 	private int numberOfFlowersInHashmap;
 	private Scanner gardenUserInput;
-	private Map<String,Integer> flowersInGarden;
+	private HashMap<String,Integer> flowersInGarden;
 	
 	public DefineGarden(String name) {
 		super(name);
@@ -44,5 +43,6 @@ public class DefineGarden extends Location {
 	
 	public void printFlowerHashMap () {
 	    System.out.println(flowersInGarden);
-	}	
+	}
+
 }
