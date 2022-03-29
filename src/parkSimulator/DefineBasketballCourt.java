@@ -13,8 +13,10 @@ public class DefineBasketballCourt extends Location {
 	}
 
 	public void basketballCourtSimulator() {
+		
 		String teamName = prompt("what is your team name?"); 
 		newGame = new Game(teamName);
+		System.out.print(newGame.simulateGame(newGame.team));
 
 	}
 
