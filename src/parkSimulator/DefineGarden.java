@@ -44,8 +44,5 @@ public class DefineGarden extends Location {
 	
 	public void printFlowerHashMap () {
 	    System.out.println(flowersInGarden);
-	}
-	
-	
-	
+	}	
 }
