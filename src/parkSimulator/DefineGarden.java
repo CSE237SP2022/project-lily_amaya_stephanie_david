@@ -26,12 +26,12 @@ public class DefineGarden extends Location {
 	
 	public void gardenSimulator() {
 		System.out.println("Welcome to the " + gardenName + "!");
-		prompt();
+		promptGarden();
 		printFlowerHashMap();
 	}
 	//option of adding a condition to the flowers where watering and fertilizing them increases the condition
 	
-	public void prompt() {
+	public void promptGarden() {
 		System.out.println("You can plant and pick flowers, and you can use status to check the status of your garden");
 		System.out.println("What would you like to do?");
 		String promptInput = gardenUserInput.nextLine();
