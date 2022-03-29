@@ -1,7 +1,7 @@
 package parkSimulator;
 
 public class Game {
-	private String team;
+	public String team;
 	private String gameMessage;
 
 	
