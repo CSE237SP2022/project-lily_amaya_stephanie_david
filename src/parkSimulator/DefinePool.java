@@ -15,6 +15,7 @@ public class DefinePool extends Location{
 	 * @param name The location/pool name
 	 * @param minDepth The minimum depth of the pool in feet
 	 * @oaram maxDepth The maximum depth of the pool in feet
+	 * @return a DefinePool object representing a pool
 	 */
 	public DefinePool(String name, double minDepth, double maxDepth) {
 		//use super to define location name

@@ -9,6 +9,11 @@ public class DefineGarden extends Location {
 	private Scanner gardenUserInput;
 	private HashMap<String,Integer> flowersInGarden;
 	
+	/**
+	 * Constructor for a Garden Location
+	 * @param name The location/garden name
+	 * @return a DefineGarden object representing a garden
+	 */
 	public DefineGarden(String name) {
 		super(name);
 		this.gardenName = "Botanical Gardens";
@@ -24,6 +29,9 @@ public class DefineGarden extends Location {
 		
 	}
 	
+	/**
+	 * Runs simulation of a garden location
+	 */
 	public void gardenSimulator() {
 		System.out.println("Welcome to the " + gardenName + "!");
 		promptGarden();
@@ -31,6 +39,9 @@ public class DefineGarden extends Location {
 	}
 	//option of adding a condition to the flowers where watering and fertilizing them increases the condition
 	
+	/**
+	 * Prompt user for input regarding what activity they would like to do
+	 */
 	public void promptGarden() {
 		System.out.println("You can plant and pick flowers, and you can use status to check the status of your garden");
 		System.out.println("What would you like to do?");
@@ -38,7 +49,9 @@ public class DefineGarden extends Location {
 	}
 	
 	
-
+	/**
+	 * Prints the hashmap of all of the flowers in the garden
+	 */
 	public void printFlowerHashMap () {
 	    System.out.println(flowersInGarden);
 	}
