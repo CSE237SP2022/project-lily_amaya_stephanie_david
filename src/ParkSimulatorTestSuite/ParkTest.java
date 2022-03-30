@@ -1,6 +1,10 @@
 package ParkSimulatorTestSuite;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import parkSimulator.Location;
 import parkSimulator.Park;
 
@@ -28,11 +32,60 @@ class ParkTest {
 	void addLocationMultiple() {
 		Park myPark = new Park("Cool Park");
 		Location RockWall = new Location("RockWall");
-		Location Pool = new Location("RockWall");
+		Location Pool = new Location("Pool");
 		myPark.addLocation(RockWall);
 		myPark.addLocation(Pool);
 		
 		assertTrue(myPark.getLocationCount()==2);
 	}
 	
+	@Test
+	void printLocationTest() {
+		Park myPark = new Park("Cool Park");
+		Location RockWall = new Location("RockWall");
+		Location Pool = new Location("Pool");
+		myPark.addLocation(RockWall);
+		myPark.addLocation(Pool);
+		
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	    System.setOut(new PrintStream(outContent));
+
+	    myPark.printLocations();
+	    String expectedOutput  = "RockWall\nPool";
+
+	    assertEquals(expectedOutput, outContent.toString().trim());
+	}
+	
+	@Test
+	void promptTest() {
+		Park myPark = new Park("Cool Park");
+		Location RockWall = new Location("RockWall");
+		Location Pool = new Location("Pool");
+		myPark.addLocation(RockWall);
+		myPark.addLocation(Pool);
+		
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	    System.setOut(new PrintStream(outContent));
+
+	    myPark.prompt();
+	    String expectedOutput  = "Welcome to the park! Where would you like to go? Options are: garden, petting zoo, basketball court, pool";
+
+	    assertEquals(expectedOutput, outContent.toString().trim());
+	}
+	
+	@Test
+	void getUserLocationTest() {
+		Park myPark = new Park("Cool Park");
+		Location RockWall = new Location("RockWall");
+		Location Pool = new Location("Pool");
+		myPark.addLocation(RockWall);
+		myPark.addLocation(Pool);
+		
+		
+
+	    String output = myPark.getUserLocation("rockwall");
+	    String expectedOutput  = "Invalid location. Please enter a valid location.";
+
+	    assertEquals(expectedOutput, output );
+	}
 }
