@@ -8,9 +8,9 @@ We will fix up the errorsin our code, allowing the user to do things in each loc
 Currently, not everything in each location works. The petting zoo and basketball court are functional, but the other locations will give errors if you try to do certain things.
 
 To run the code from the command line:
-cd to the location project-lily_amaya_stephanie_david/src/parkSimulator
-compile the files with: javac *.java 
-java Simulator
+cd to the location project-lily_amaya_stephanie_david/src
+compile the files with: javac parkSimulator/*.java 
+run the program with: java parkSimulator/Simulator
 
 Also, when running the tests for the various prompting methods, you have to input something into the console. This can be any random input.
 
