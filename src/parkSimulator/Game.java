@@ -10,11 +10,9 @@ public class Game {
 		gameMessage = "";
 	}
 	
-	public String simulateGame(String team) {
-		int teamAPoints;
-		int teamBPoints;
-		teamAPoints = (int) (Math.random() * 100);
-		teamBPoints = (int) (Math.random() * 100);
+	public String simulateGame() {
+		int teamAPoints = randomScore();
+		int teamBPoints = randomScore();
 		if(teamAPoints > teamBPoints) {
 			gameMessage = team + "Wins!" + "Score: " + teamAPoints + "-" + teamBPoints;
 		}
@@ -27,6 +25,12 @@ public class Game {
 		}
 		 
 		return gameMessage;
+	}
+
+	public int randomScore() {
+		int Points;
+		Points = (int) (Math.random() * 100);
+		return Points;
 	}
 }
 
