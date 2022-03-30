@@ -12,32 +12,32 @@ import parkSimulator.DefinePool;
 public class PoolTest {
 
 	@Test
-	void testPoolName() {
+	public void testPoolName() {
 		DefinePool testPool = new DefinePool("Splash Zone Pool",1.0,9.0);
 		String poolName = testPool.getLocationName();
 		assertTrue(poolName.equals("Splash Zone Pool"));
 	}
 	
 	@Test
-	void testPoolMinDepth() {
+	public void testPoolMinDepth() {
 		DefinePool testPool = new DefinePool("Splash Zone Pool",1.0,9.0);
 		double depth = testPool.getMinDepth();
 		assertEquals(1.0,depth,0.1);
 	}
 	
 	@Test
-	void testPoolMaxDepth() {
+	public void testPoolMaxDepth() {
 		DefinePool testPool = new DefinePool("Splash Zone Pool",1.0,9.0);
 		double depth = testPool.getMaxDepth();
 		assertEquals(9.0,depth,0.1);
 	}
 	
 	@Test
-	void testInputRegistered() {
+	public void testInputRegistered() {
 		DefinePool testPool = new DefinePool("Splash Zone Pool",1.0,9.0);
 		System.out.println("Input an integer.");
 		testPool.prompt();
-		assertFalse(testPool.getCurrentActivityNumber()==0);
+		assertFalse(testPool.getCurrentActivityNumber==0);
 	}
 	
 	
