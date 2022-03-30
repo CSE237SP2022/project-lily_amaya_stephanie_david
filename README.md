@@ -9,8 +9,8 @@ Currently, not everything in each location works. The petting zoo and basketball
 
 To run the code from the command line:
 cd to the location project-lily_amaya_stephanie_david/src/parkSimulator
-
 compile the files with: javac *.java 
+java Simulator
 
-
+Also, when running the tests for the various prompting methods, you have to input something into the console. This can be any random input.
 
