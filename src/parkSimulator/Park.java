@@ -29,7 +29,8 @@ public class Park {
 	
 	public void printLocations() {
 		for (int i=0;i<parkLocations.size();i++) {
-			System.out.println(parkLocations.get(i));
+			System.out.println(parkLocations.get(i).getLocationName());
+		
 		}
 	}
 	
@@ -39,8 +40,7 @@ public class Park {
 		return locationInputString;
 	}
 	
-	public void getUserLocation(String locationInputString) {
-		
+	public String getUserLocation(String locationInputString) {
 			if(locationInputString.equals("garden")) {
 				DefineGarden garden = new DefineGarden("garden");
 				garden.gardenSimulator();
@@ -64,9 +64,15 @@ public class Park {
 				pool.poolSimulator();
 				message = "Where would you like to go next?";
 			}
+			else if(locationInputString.equals("leave")) {
+				message = "leave";
+			}
 			else {
 				message = "Invalid location. Please enter a valid location.";
+
 			}
+			return message;
+
 		
 	}
 }
