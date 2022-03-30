@@ -5,11 +5,18 @@ public class Game {
 	private String gameMessage;
 
 	
+	/**
+	 * Constructor for a Game
+	 * @param name The name of the game
+	 */
 	public Game(String name) {
 		team = name;
 		gameMessage = "";
 	}
 	
+	/**
+	 * Runs simulation of a game
+	 */
 	public String simulateGame() {
 		int teamAPoints = randomScore();
 		int teamBPoints = randomScore();
@@ -27,6 +34,10 @@ public class Game {
 		return gameMessage;
 	}
 
+	/**
+	 * Generate a random score
+	 * @return a randomly generated integer between 0-99 
+	 */
 	public int randomScore() {
 		int Points;
 		Points = (int) (Math.random() * 100);
