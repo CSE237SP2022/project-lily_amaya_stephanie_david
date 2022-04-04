@@ -37,7 +37,7 @@ public class PoolTest {
 		DefinePool testPool = new DefinePool("Splash Zone Pool",1.0,9.0);
 		System.out.println("Input an integer.");
 		testPool.prompt();
-		assertFalse(testPool.getCurrentActivityNumber==0);
+		assertFalse(testPool.getCurrentActivityNumber()==0);
 	}
 	
 	
