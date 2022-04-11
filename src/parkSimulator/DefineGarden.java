@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class DefineGarden extends Location {
 	
-	private String gardenName;
 	private int numberOfFlowersInHashmap;
 	private Scanner gardenUserInput;
 	private HashMap<String,Integer> flowersInGarden;
+	private String promptInput;
 	
 	/**
 	 * Constructor for a Garden Location
@@ -16,9 +16,9 @@ public class DefineGarden extends Location {
 	 */
 	public DefineGarden(String name) {
 		super(name);
-		this.gardenName = "Botanical Gardens";
+		
 		this.gardenUserInput = new Scanner(System.in);
-		this.numberOfFlowersInHashmap = 0;
+		this.promptInput = "";
 		this.flowersInGarden = new HashMap<String, Integer>() {{
 			put("roses", 4);
 			put("dandalions", 6);
@@ -33,24 +33,16 @@ public class DefineGarden extends Location {
 	 * Runs simulation of a garden location
 	 */
 	public void gardenSimulator() {
-		System.out.println("Welcome to the " + gardenName + "!");
+		System.out.println("Welcome to the Botanical Gardens!");
 		promptGarden();
 	}
-	//option of adding a condition to the flowers where watering and fertilizing them increases the condition
-	
-
-	
 	
 	/**
 	 * Prompt user for input regarding what activity they would like to do
 	 */
 	public void promptGarden() {
-		System.out.println("You can plant flowers, pick flowers, use status to check your garden and quit to go to a different location");
-		System.out.println("What would you like to do?");
-		String promptInput = gardenUserInput.nextLine();
 		
-		
-		
+		beginningPrompt();
 		if (promptInput.equals("plant") || promptInput.equals("pick")) {
 			addorPickPrompt(promptInput);
 		}
@@ -65,14 +57,17 @@ public class DefineGarden extends Location {
 			System.out.println("Invalid Input! You can plant and pick flowers, and you can use status to check the status of your garden");
 			 promptInput = gardenUserInput.nextLine();
 		}
-		
 		if (promptInput.equals("status")) {
-			printFlowerHashMap();
-			System.out.println();
-			promptGarden();
+			startOver();
 		}
 		
 		
+	}
+	
+	public void beginningPrompt () {
+		System.out.println("You can plant flowers, pick flowers, you have starter garden that you can check by using status and quit to go to a different location");
+		System.out.println("What would you like to do?");
+		promptInput = gardenUserInput.nextLine();
 	}
 	
 	public void addorPickPrompt (String promptInput) {
@@ -83,7 +78,6 @@ public class DefineGarden extends Location {
 			System.out.println("Invalid Flower name! The valid flower names are: roses, dandalions, sunflowers, marigolds, begonias");
 			flowerName = gardenUserInput.nextLine();
 		}
-		
 		
 		if (promptInput.equals("pick")) {
 			while (flowersInGarden.get(flowerName) == 0) {
@@ -104,13 +98,11 @@ public class DefineGarden extends Location {
 		
 		System.out.println("How many Flowers would you like to plant?");
 		int flowerNumber = gardenUserInput.nextInt();
-		
 		if (flowersInGarden.containsKey(flowerName)) {
 			flowersInGarden.put(flowerName, flowersInGarden.get(flowerName) + flowerNumber);
-			printFlowerHashMap();
-			System.out.println();
-			promptGarden();
+			startOver();
 		}
+		
 	}
 	
 	public void pickFlower(String flowerName) {
@@ -118,20 +110,32 @@ public class DefineGarden extends Location {
 		System.out.println("How many Flowers would you like to pick?");
 		int flowerNumber = gardenUserInput.nextInt();
 		
+		if (flowersInGarden.containsKey(flowerName)) {
+			flowersInGarden.put(flowerName, flowersInGarden.get(flowerName) + flowerNumber);
+			startOver();
+		}
 		
+		invalidFlowerNumber(flowerName, flowerNumber);
+		if (flowersInGarden.containsKey(flowerName)) {
+			flowersInGarden.put(flowerName, flowersInGarden.get(flowerName) - flowerNumber);
+			startOver();
+		}
+		
+	}
+	
+	public void invalidFlowerNumber(String flowerName, int flowerNumber) {
 		while (flowersInGarden.get(flowerName) < flowerNumber) {
 			System.out.println("Invalid number of flowers. You cannot take more flowers than currently in the garden!");
 			 flowerNumber = gardenUserInput.nextInt();
 		}
-		
-		if (flowersInGarden.containsKey(flowerName)) {
-			flowersInGarden.put(flowerName, flowersInGarden.get(flowerName) - flowerNumber);
-			printFlowerHashMap();
-			System.out.println();
-			promptGarden();
-		}
-		
 	}
+	
+	public void startOver () {
+		printFlowerHashMap();
+		System.out.println();
+		promptGarden();
+	}
+	
 	
 	/**
 	 * Prints the hashmap of all of the flowers in the garden
