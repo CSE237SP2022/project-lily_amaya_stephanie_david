@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class DefineBasketballCourt extends Location {
 
 	private Game newGame;
+	private TrickShotGame otherGame;
 	private Scanner locationInputScanner = new Scanner(System.in);
 
 	/**
@@ -21,11 +22,27 @@ public class DefineBasketballCourt extends Location {
 	 * Runs simulation of a basketball court
 	 */
 	public void basketballCourtSimulator() {
-		String teamName = prompt("what is your team name?"); 
-		newGame = new Game(teamName);
-		System.out.print(newGame.simulateGame());
+		chooseMode();
+		
 
 
+	}
+
+	public void chooseMode() {
+		String mode = prompt("Do you want to play HORSE or a game?");
+		if(mode.equals( "game")) {
+			String teamName = prompt("what is your team name?"); 
+			newGame = new Game(teamName);
+			System.out.print(newGame.simulateGame());
+		}
+		else if(mode.equals("HORSE") ||(mode.equals("horse"))) {
+			otherGame = new TrickShotGame();
+			System.out.print(otherGame.playGame());
+			System.out.print("You are playing HORSE");
+		}
+		else {
+			chooseMode();
+		}
 	}
 
 	/**
