@@ -38,7 +38,7 @@ public class DefineBasketballCourt extends Location {
 		else if(mode.equals("HORSE") ||(mode.equals("horse"))) {
 			otherGame = new TrickShotGame();
 			System.out.print(otherGame.playGame());
-			System.out.print("You are playing HORSE");
+			System.out.print(" You played HORSE ");
 		}
 		else {
 			chooseMode();
