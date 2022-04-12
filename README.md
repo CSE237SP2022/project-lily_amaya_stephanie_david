@@ -15,6 +15,6 @@ run the program with: java parkSimulator/Simulator
 Several of the unit tests need user input to be completed: 
 When running the unit test for GardenTestSuite you need to input in this order:
 1. any input 
-2. '1'
+2. 1
 3. roses
 
