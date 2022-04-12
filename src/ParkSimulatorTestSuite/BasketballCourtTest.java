@@ -1,4 +1,8 @@
- 
+
+//I am not testing the prompt, basketballCourtSimulator, chooseMode, getRange, or round methods because they all require user input. 
+	//Testing these methods would essentially be testing to see if the Scanner works.
+	
+	
 	
 	package ParkSimulatorTestSuite;
 
@@ -16,6 +20,7 @@
 	class BasketballCourtTest {
 	private DefineBasketballCourt basketballCourt;
 	private Game newGame = new Game("team");
+	private TrickShotGame trickGame = new TrickShotGame();
 
 	@BeforeEach
 	void setup() {
@@ -23,14 +28,14 @@
 	}
 
 	@Test
-	void listOptionsTest() {
-	ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	   System.setOut(new PrintStream(outContent));
-	   String testString = "what is your team name?";
-	   basketballCourt.prompt(testString);
-	   String expectedOutput  = "what is your team name?";
-	   
-	   assertEquals(expectedOutput, outContent.toString().trim());
+	
+	void checkTest() {
+	int probability = 90;
+	int distance =  4;
+	int lengthCheck = 5;
+	   boolean expectedOutput = true;
+	   boolean output = trickGame.check(lengthCheck, distance, probability);
+	   assertEquals(output, expectedOutput);
 	}
 	@Test
 	
