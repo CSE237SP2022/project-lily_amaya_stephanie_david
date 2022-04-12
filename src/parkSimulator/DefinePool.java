@@ -9,6 +9,7 @@ public class DefinePool extends Location{
 	private double maxPoolDepth; //Depth of deepest part of pool in feet
 	private Scanner poolUserInput; //Scanner for user input
 	private int currentActivity; //Track what the user is doing
+	private boolean ansiEnabled; //Determine if user terminal supports ANSI for color encoding
 	
 	
 	/**
@@ -25,6 +26,7 @@ public class DefinePool extends Location{
 		this.maxPoolDepth = maxDepth;
 		this.poolUserInput = new Scanner(System.in);
 		this.currentActivity=0;
+		this.ansiEnabled=true;
 	}
 	
 	public DefinePool(String name) {
@@ -33,6 +35,7 @@ public class DefinePool extends Location{
 		this.maxPoolDepth = 4.0;
 		this.poolUserInput = new Scanner(System.in);
 		this.currentActivity=0;
+		this.ansiEnabled=true;
 	}
 	
 	/**
@@ -59,11 +62,16 @@ public class DefinePool extends Location{
 		return this.currentActivity;
 	}
 	
+	
 	/**
 	 * Begin the pool simulation.
 	 */
 	public void poolSimulator() {
 		System.out.println("Welcome to the " + this.getLocationName() + "!");
+		System.out.println("Does your terminal support ANSI? Type yes or no.");
+		if (!poolUserInput.nextLine().equals("yes")) {
+			this.ansiEnabled=false;
+		}
 		prompt();
 	}
 	
@@ -72,13 +80,7 @@ public class DefinePool extends Location{
 	 */
 	public void prompt() {
 		setANSIColor(7);
-		System.out.println("\nActivities are listed below.");
-		System.out.println("1. Dive");
-		System.out.println("2. Fetch Rings");
-		System.out.println("3. Swim");
-		System.out.println("4. View Pool Info");
-		System.out.println("5. Leave pool");
-		System.out.println("\nWhat would you like to do? (Enter 1-5)");
+		System.out.println("\nActivities are listed below.\n1. Dive\n2. Fetch Rings\n3. Swim\n4. View Pool Info\n5. Leave Pool\n\n\nWhat would you like to do? (Enter 1-5)");
 		this.currentActivity = poolUserInput.nextInt();
 		switchHandler(this.currentActivity);
 	}
@@ -106,6 +108,7 @@ public class DefinePool extends Location{
 	}
 	
 	public void switchError() {
+		setANSIColor(1);
 		System.out.println("Invalid option.");
 		prompt();
 	}
@@ -116,13 +119,7 @@ public class DefinePool extends Location{
 	}
 	
 	public void fetchRings() {
-		System.out.println("\nTo catch rings you'll have to enter which spot the ring is at! (1-10)");
-		System.out.println("WWWWW0WWWW");
-		System.out.println("Here, you would type \"6\" and press enter.");
-		System.out.println("0WWWWWWWWW");
-		System.out.println("Here, you would type \"1\" and press enter.");
-		System.out.println("If you're not fast enough someone else might grab them, so hurry!");
-		System.out.println("\nPress any button and hit enter to continue.");
+		System.out.println("\nTo catch rings you'll have to enter which spot the ring is at! (1-10)\nWWWWW0WWWW\nHere, you would type \"6\" and press enter.\n0WWWWWWWWW\nHere, you would type \"1\" and press enter.\nIf you're not fast enough someone else might grab them, so hurry!\n\nPress any button and hit enter to continue.");
 		String continuePrompt = poolUserInput.next();
 		prompt();
 	}
@@ -173,12 +170,13 @@ public class DefinePool extends Location{
 	}
 	
 	public void setANSIColor(int i) {
+		if (ansiEnabled)
 		switch(i) {
 		case 0,1,2,3,4,5,6:
 			System.out.print("\u001B[3" + i +"m"); 
 			break;
 		default:
-			System.out.print("\u001B[37m"); //White
+			System.out.print("\u001B[37m");
 			break;
 		}
 	}
@@ -189,8 +187,7 @@ public class DefinePool extends Location{
 			rings[i] = 'W';
 		}
 		rings[(int)(Math.random()*10)]='0';
-		String convertedRings=String.copyValueOf(rings);
-		return convertedRings;
+		return String.copyValueOf(rings);
 	}
 	
 	public void pause(int milliseconds) {
@@ -203,7 +200,10 @@ public class DefinePool extends Location{
 	
 	
 	public void viewPoolInfo() {
-		System.out.println(this.getLocationName() + " has a minimum depth of " + this.getMinDepth() + " meters and a maximum depth of " + this.getMaxDepth() + " meters.");
+		setANSIColor(3);
+		System.out.println("****************************************************");
+		System.out.println(this.getLocationName() + " has a minimum depth of " + this.getMinDepth() + " meters \nand a maximum depth of " + this.getMaxDepth() + " meters.");
+		System.out.println("****************************************************");
 		prompt();
 		
 	}
