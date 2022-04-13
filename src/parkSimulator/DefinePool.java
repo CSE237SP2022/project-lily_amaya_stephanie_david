@@ -16,7 +16,7 @@ public class DefinePool extends Location{
 	 * Constructor for a Pool Location
 	 * @param name The location/pool name
 	 * @param minDepth The minimum depth of the pool in feet
-	 * @oaram maxDepth The maximum depth of the pool in feet
+	 * @param maxDepth The maximum depth of the pool in feet
 	 * @return a DefinePool object representing a pool
 	 */
 	public DefinePool(String name, double minDepth, double maxDepth) {
@@ -30,6 +30,11 @@ public class DefinePool extends Location{
 		this.ansiEnabled=true;
 	}
 	
+	/**
+	 * Constructor for a Pool Location
+	 * @param name The location/pool name
+	 * @return a DefinePool object representing a pool
+	 */
 	public DefinePool(String name) {
 		super(name);
 		this.minPoolDepth = 1.0;
@@ -86,6 +91,10 @@ public class DefinePool extends Location{
 		switchHandler(this.currentActivity);
 	}
 	
+	/**
+	 * Execute the appropriate activity given user input
+	 * @param i The integer the user entered.
+	 */
 	public void switchHandler(int i) {
 		switch(i) {
 		case 1:
@@ -108,17 +117,26 @@ public class DefinePool extends Location{
 		}
 	}
 	
+	/**
+	 * Print an error if the user chose an invalid activity and reprompt
+	 */
 	public void switchError() {
 		setANSIColor(1);
 		System.out.println("Invalid option.");
 		prompt();
 	}
 	
+	/**
+	 * Execute dive simulation
+	 */
 	public void dive() {
 		System.out.println("Simulate Dive");
 		prompt();
 	}
 	
+	/**
+	 * Execute ring fetch simulation
+	 */
 	public void fetchRings() {
 		System.out.println("\nTo catch rings you'll have to enter which spot the ring is at! (1-10)\nWWWWW0WWWW\nHere, you would type \"6\" and press enter.\n0WWWWWWWWW\nHere, you would type \"1\" and press enter.\nIf you're not fast enough someone else might grab them, so hurry!\n\nPress any button and hit enter to continue.");
 		String continuePrompt = poolUserInput.next();
@@ -126,6 +144,9 @@ public class DefinePool extends Location{
 		prompt();
 	}
 	
+	/**
+	 * Execute swim simulation
+	 */
 	public void swim(){
 		setANSIColor(6);
 		swimHelper();
@@ -134,6 +155,9 @@ public class DefinePool extends Location{
 		prompt();
 	}
 	
+	/**
+	 * Chain swim methods together to execute simulation correctly
+	 */
 	public void swimHelper() {
 		int swimmerLocation=0;
 		boolean forwards =true;
@@ -149,6 +173,11 @@ public class DefinePool extends Location{
 		}
 	}
 	
+	/**
+	 * Setup a char array to simulate a wave with a swimmer
+	 * @param waves An array of chars
+	 * @param location The location of the swimmer in a wave
+	 */
 	public void waveGenerator(char[]waves,int location) {
 		for (int j=0;j<waves.length;j++) {
 			waves[j]='w';
@@ -156,12 +185,24 @@ public class DefinePool extends Location{
 		waves[location] = '0';
 	}
 	
+	/**
+	 * Print the swim simulation data
+	 * @param waves An array of chars already setup to represent a wave
+	 * @param location The location of the swimmer in a wave
+	 * @param waveNumber Which wave you're running
+	 */
 	public void printWave(char[]waves,int location, int waveNumber) {
 		System.out.println(String.valueOf(waves) + "         " + swimmerMessage(waveNumber));
 		pause(100);
 		waveGenerator(waves,location);
 	}
 	
+	/**
+	 * Update the swimmer's location in a wave
+	 * @param currentLocation The location of the swimmer in the wave
+	 * @param forward True if swimmer is going right, False if going left
+	 * @return an Integer with the next swimmer location
+	 */
 	public int updateSwimmerLocation(int currentLocation,boolean forward) {
 		if (forward) {
 			return currentLocation + 1;
@@ -171,6 +212,11 @@ public class DefinePool extends Location{
 		}
 	}
 	
+	/**
+	 * Determine if the swimmer is at the edge of a wave
+	 * @param location The location of the swimmer in the wave
+	 * @return True if the swimmer is at edge of wave, false if not
+	 */
 	public boolean swimmerAtBounds(int location) {
 		if (location==0 || location==9)
 			return true;
@@ -178,7 +224,11 @@ public class DefinePool extends Location{
 			return false;
 	}
 	
-	
+	/**
+	 * Determine if additional message needed for current wave of swim simulation
+	 * @param location The current wave
+	 * @return A string containing an additional message if needed
+	 */
 	public String swimmerMessage(int location) {
 		if (location==10)
 			return "Faster!";
@@ -190,6 +240,9 @@ public class DefinePool extends Location{
 			return "";
 	}
 	
+	/**
+	 * Execute the ring fetch minigame
+	 */
 	public void fetchRingGame() {
 		int score=-1;
 		long millis=System.currentTimeMillis(); 
@@ -205,6 +258,10 @@ public class DefinePool extends Location{
 		System.out.println("Game over! Your score was " + score + " points.");
 	}
 	
+	/**
+	 * Print ANSI data to change text color in terminal
+	 * @param i The ANSI number to set the text color to, defaults to white if invalid.
+	 */
 	public void setANSIColor(int i) {
 //		if (ansiEnabled)
 //		switch(i) {
@@ -217,6 +274,10 @@ public class DefinePool extends Location{
 //		}
 	}
 	
+	/**
+	 * Generate a random wave with a ring for the ring fetch mini game
+	 * @return a String of length 10 made of all 'W's and one ring, '0'
+	 */
 	public String ringFetchGenerator() {
 		char[] rings = new char[10];
 		for (int i=0; i < rings.length;i++) {
@@ -226,6 +287,12 @@ public class DefinePool extends Location{
 		return String.copyValueOf(rings);
 	}
 	
+	/**
+	 * Determine if the user input was correct for the ring fetch mini game
+	 * @param s The current string/wave of the game
+	 * @param input The location the user gave
+	 * @return boolean true if user answered correctly, false if not
+	 */
 	public boolean ringFetchVerify(String s, int input) {
 		if (s.charAt(input-1)=='0')
 			return true;
@@ -233,6 +300,10 @@ public class DefinePool extends Location{
 			return false;
 	}
 	
+	/**
+	 * Temporarily sleep, pausing program execution
+	 * @param milliseconds The time period to pause for in milliseconds
+	 */
 	public void pause(int milliseconds) {
 		try {
 			TimeUnit.MILLISECONDS.sleep(milliseconds);
@@ -241,7 +312,9 @@ public class DefinePool extends Location{
 		}
 	}
 	
-	
+	/**
+	 * Print a pool location's data
+	 */
 	public void viewPoolInfo() {
 		setANSIColor(3);
 		System.out.println("****************************************************");
@@ -251,6 +324,9 @@ public class DefinePool extends Location{
 		
 	}
 	
+	/**
+	 * Print exit message
+	 */
 	public void leavePool() {
 		System.out.println("Thanks for visiting!");
 	}

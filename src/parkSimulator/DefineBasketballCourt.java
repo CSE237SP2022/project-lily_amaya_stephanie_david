@@ -28,6 +28,9 @@ public class DefineBasketballCourt extends Location {
 
 	}
 
+	/**
+	 * Prompt user for input regarding what game mode they would like to play and execute accordingly
+	 */
 	public void chooseMode() {
 		String mode = prompt("Do you want to play HORSE or a game?");
 		if(mode.equals( "game")) {
