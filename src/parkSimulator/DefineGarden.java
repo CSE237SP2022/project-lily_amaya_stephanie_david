@@ -64,13 +64,16 @@ public class DefineGarden extends Location {
 		
 	}
 	
-	
 	public void beginningPrompt() {
 	System.out.println("You can plant flowers, pick flowers, you have starter garden that you can check by using status and quit to go to a different location");
 	System.out.println("What would you like to do?");
 	promptInput = gardenUserInput.nextLine();
 }
 	
+	/**
+	 * Prompt user for the flower they want to perform an action for and execute that action accordingly
+	 * @param promptInput The action the user is performing for whichever flower they input
+	 */
 	public void addorPickPrompt (String promptInput) {
 		System.out.println("What Flower would you like to " + promptInput + "?");
 		String flowerName = gardenUserInput.nextLine();
@@ -91,6 +94,10 @@ public class DefineGarden extends Location {
 	
 	public String existingFlower(String flowerName) {
 			System.out.println("Invalid Flower name! The valid flower names are: roses, dandalions, sunflowers, marigolds, begonias");
+	
+  public void zeroFlowers (String flowerName) {
+		while (flowersInGarden.get(flowerName) == 0) {
+			System.out.println("There are zero flowers! Try adding some flowers before picking!");
 			flowerName = gardenUserInput.nextLine();
 			return flowerName;
 	}
@@ -98,12 +105,16 @@ public class DefineGarden extends Location {
 	public String zeroFlowers(String flowerName) {
 		while (flowersInGarden.get(flowerName) == 0) {
 			System.out.println("There are zero flowers! What other flowers would you like to pick?");
+
+	public void existingFlower(String flowerName) {
+		while (flowersInGarden.getOrDefault(flowerName, null) == null) {
+			System.out.println("Invalid Flower name! The valid flower names are: roses, dandalions, sunflowers, marigolds, begonias");
 			flowerName = gardenUserInput.nextLine();
 		}
 		return flowerName;
 	}
 	
-	
+
 	public void addFlower(String flowerName) {
 		System.out.println("How many Flowers would you like to plant?");
 		int flowerNumber = gardenUserInput.nextInt();
@@ -115,6 +126,11 @@ public class DefineGarden extends Location {
 		
 	}
 	
+	
+	/**
+	 * Prompt user to pick flower(s)
+	 * @param flowerName the flower the user is trying to take
+	 */
 	public void pickFlower(String flowerName) {
 	
 		System.out.println("How many Flowers would you like to pick?");
@@ -128,8 +144,7 @@ public class DefineGarden extends Location {
 		}
 
 	}
-	
-	public int invalidFlowerNumber(String flowerName, int flowerNumber) {
+
 		while (flowersInGarden.get(flowerName) < flowerNumber) {
 			System.out.println("Invalid number of flowers. You cannot take more flowers than currently in the garden!");
 			 flowerNumber = gardenUserInput.nextInt();
@@ -138,6 +153,9 @@ public class DefineGarden extends Location {
 		return flowerNumber;
 	}
 	
+	/**
+	 * Print the flower hash map and prompt user
+	 */
 	public void startOver () {
 		printFlowerHashMap();
 		System.out.println();
