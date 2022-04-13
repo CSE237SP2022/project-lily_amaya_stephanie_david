@@ -205,15 +205,15 @@ public class DefinePool extends Location{
 	}
 	
 	public void setANSIColor(int i) {
-		if (ansiEnabled)
-		switch(i) {
-		case 0,1,2,3,4,5,6:
-			System.out.print("\u001B[3" + i +"m"); 
-			break;
-		default:
-			System.out.print("\u001B[37m");
-			break;
-		}
+//		if (ansiEnabled)
+//		switch(i) {
+//		case 0,1,2,3,4,5,6:
+//			System.out.print("\u001B[3" + i +"m"); 
+//			break;
+//		default:
+//			System.out.print("\u001B[37m");
+//			break;
+//		}
 	}
 	
 	public String ringFetchGenerator() {
