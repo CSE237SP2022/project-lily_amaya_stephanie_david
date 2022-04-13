@@ -12,12 +12,20 @@ public class TrickShotGame {
 	private boolean missed;
 
 	// TODO Auto-generated method stub
+	/**
+	 * Constructor
+	 * Initializes scores and sets up first turn
+	 */
 	public TrickShotGame() {
 		this.userScore = "HORSE";
 		this.computerScore = "HORSE";
 		this.returnMessage = "";
 		this.userFirst = true;
 	}
+	/**
+	 * starts the actual game
+	 * @returns String representing how the game went
+	 */
 	public String playGame() {
 		System.out.println("You are playing horse. You and your opponent both have 5 lives represented by the word horse.");
 		System.out.println("If you make a shot and your opponent misses they lose a letter");
@@ -25,6 +33,12 @@ public class TrickShotGame {
 		round(false,false,userFirst);
 		return " not working yet ";
 	}
+	/**
+	 * 
+	 * @param made whether or not the computer made their last shot
+	 * @param distance range of basketball shot
+	 * @return boolean representing whether the user made this shot
+	 */
 	public boolean userTurn(boolean made, int distance) {
 		if(made) {
 			return takeShot(distance);
@@ -33,7 +47,12 @@ public class TrickShotGame {
 			return takeShot(distance);
 		}
 	}
-
+	/**
+	 * 
+	 * @param made whether or not the user made their last shot
+	 * @param distance range of basketball shot
+	 * @return boolean representing whether the computer made this shot
+	 */
 	public boolean computerTurn(boolean made, int distance) {
 		if(made == true) {
 			return takeShot(distance);
@@ -43,8 +62,14 @@ public class TrickShotGame {
 			return takeShot(distance);
 		}
 	}
+	/**
+	 * 
+	 * @param userMade boolean if user made a shot
+	 * @param compMade boolean if computer made a shot
+	 * @param userFirst boolean turn order
+	 */
 	public void round(boolean userMade, boolean compMade, boolean userFirst) {
-		
+
 		if(userFirst == true) {
 			System.out.print("user: " + this.userScore + " ");
 			System.out.println("computer: " + this.computerScore + " ");
@@ -62,6 +87,10 @@ public class TrickShotGame {
 		}
 
 	}
+	/**
+	 * prompt user for distance to shoot
+	 * @param message String to be shown to user
+	 */
 	public void getRange(String message) {
 
 		Scanner locationInputScanner = new Scanner(System.in);
@@ -82,6 +111,11 @@ public class TrickShotGame {
 
 
 	}
+	/**
+	 * 
+	 * @param distance range of basketball shot
+	 * @return boolean if shot went in
+	 */
 	public boolean takeShot(int distance) {
 		int probability = (int)((Math.random()*99)+1);
 		int lengthCheck = 5;
@@ -109,24 +143,31 @@ public class TrickShotGame {
 		}
 		System.out.print("The shot went in! Distance: " + this.range);
 		return true;
-		
+
 	}
 
-public boolean check(int lengthCheck, int distance, int probability) {
-	if(distance < lengthCheck) {
-		if(probability > lengthCheck*2) {
-			
-			this.missed = false;
-			this.range = distance;
-			return true;
+	/**
+	 * 
+	 * @param lengthCheck int increasing value allowing for decreasing probability with farther shots
+	 * @param distance int range
+	 * @param probability int representing the "roll" the user had with their shot
+	 * @return boolean if the shot went in
+	 */
+	public boolean check(int lengthCheck, int distance, int probability) {
+		if(distance < lengthCheck) {
+			if(probability > lengthCheck*2) {
+
+				this.missed = false;
+				this.range = distance;
+				return true;
+			}
+			else {
+				this.missed = true;
+				return true;
+			}
 		}
-		else {
-			this.missed = true;
-			return true;
-		}
+		return false;
+
 	}
-	return false;
-	
-}
 }
 

@@ -1,7 +1,7 @@
 
 //I am not testing the prompt, basketballCourtSimulator, chooseMode, getRange, or round methods because they all require user input. 
 	//Testing these methods would essentially be testing to see if the Scanner works.
-	
+	//Not testing TrickShotGame Classes because they are all reliant on math.random.
 	
 	
 	package ParkSimulatorTestSuite;
