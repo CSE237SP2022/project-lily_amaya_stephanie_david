@@ -64,14 +64,11 @@ public class DefineGarden extends Location {
 		
 	}
 	
-	/**
-	 * Provide initial info to the user and prompt for what action to perform
-	 */
 	public void beginningPrompt() {
-		System.out.println("You can plant flowers, pick flowers, you have starter garden that you can check by using status and quit to go to a different location");
-		System.out.println("What would you like to do?");
-		promptInput = gardenUserInput.nextLine();
-	}
+	System.out.println("You can plant flowers, pick flowers, you have starter garden that you can check by using status and quit to go to a different location");
+	System.out.println("What would you like to do?");
+	promptInput = gardenUserInput.nextLine();
+}
 	
 	/**
 	 * Prompt user for the flower they want to perform an action for and execute that action accordingly
@@ -80,50 +77,48 @@ public class DefineGarden extends Location {
 	public void addorPickPrompt (String promptInput) {
 		System.out.println("What Flower would you like to " + promptInput + "?");
 		String flowerName = gardenUserInput.nextLine();
-		
-		existingFlower(flowerName);
-		
+
+		while (flowersInGarden.getOrDefault(flowerName, null) == null) {
+			flowerName = existingFlower(flowerName);
+		}
 		if (promptInput.equals("pick")) {
-			zeroFlowers(flowerName);
-				pickFlower(flowerName);
+			flowerName = zeroFlowers(flowerName);
+			pickFlower(flowerName);
 		}
 		
 		else if (promptInput.equals("plant")) {
 			addFlower(flowerName);
-		}
-		
+		}	
 	}
 	
-	/**
-	 * Reprompt user if they try to pick flowers that have a quantity of zero in the garden
-	 * @param flowerName the flower the user is trying to pick
-	 */
-	public void zeroFlowers (String flowerName) {
+	
+	public String existingFlower(String flowerName) {
+			System.out.println("Invalid Flower name! The valid flower names are: roses, dandalions, sunflowers, marigolds, begonias");
+	
+  public void zeroFlowers (String flowerName) {
 		while (flowersInGarden.get(flowerName) == 0) {
 			System.out.println("There are zero flowers! Try adding some flowers before picking!");
 			flowerName = gardenUserInput.nextLine();
-		}
+			return flowerName;
 	}
 	
-	/**
-	 * Reprompt user if they input the name of a flower that isn't in the garden
-	 * @param flowerName the name of the flower to check in the garden
-	 */
+	public String zeroFlowers(String flowerName) {
+		while (flowersInGarden.get(flowerName) == 0) {
+			System.out.println("There are zero flowers! What other flowers would you like to pick?");
+
 	public void existingFlower(String flowerName) {
 		while (flowersInGarden.getOrDefault(flowerName, null) == null) {
 			System.out.println("Invalid Flower name! The valid flower names are: roses, dandalions, sunflowers, marigolds, begonias");
 			flowerName = gardenUserInput.nextLine();
 		}
+		return flowerName;
 	}
 	
-	/**
-	 * Prompt user to plant flower(s)
-	 * @param flowerName the type of flower the user is trying to plant
-	 */
+
 	public void addFlower(String flowerName) {
-		
 		System.out.println("How many Flowers would you like to plant?");
 		int flowerNumber = gardenUserInput.nextInt();
+		gardenUserInput.nextLine();
 		if (flowersInGarden.containsKey(flowerName)) {
 			flowersInGarden.put(flowerName, flowersInGarden.get(flowerName) + flowerNumber);
 			startOver();
@@ -140,25 +135,22 @@ public class DefineGarden extends Location {
 	
 		System.out.println("How many Flowers would you like to pick?");
 		int flowerNumber = gardenUserInput.nextInt();
+		gardenUserInput.nextLine();
 		
-		invalidFlowerNumber(flowerName, flowerNumber);
+		flowerNumber = invalidFlowerNumber(flowerName, flowerNumber);
 		if (flowersInGarden.containsKey(flowerName)) {
 			flowersInGarden.put(flowerName, flowersInGarden.get(flowerName) - flowerNumber);
 			startOver();
 		}
-		
+
 	}
-	
-	/**
-	 * Reprompt user until a valid number of flowers is given
-	 * @param flowerName the flower the user is trying to take
-	 * @param flowerNumber the number of flowers the user is trying to take
-	 */
-	public void invalidFlowerNumber(String flowerName, int flowerNumber) {
+
 		while (flowersInGarden.get(flowerName) < flowerNumber) {
 			System.out.println("Invalid number of flowers. You cannot take more flowers than currently in the garden!");
 			 flowerNumber = gardenUserInput.nextInt();
+			 gardenUserInput.nextLine();
 		}
+		return flowerNumber;
 	}
 	
 	/**
@@ -167,7 +159,7 @@ public class DefineGarden extends Location {
 	public void startOver () {
 		printFlowerHashMap();
 		System.out.println();
-		promptGarden();
+		promptGarden();	
 	}
 	
 	
