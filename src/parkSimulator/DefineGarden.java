@@ -33,7 +33,8 @@ public class DefineGarden extends Location {
 	 * Runs simulation of a garden location
 	 */
 	public void gardenSimulator() {
-		System.out.println("Welcome to the Botanical Gardens!");
+		System.out.println("Welcome to the Botanical Gardens! Here is your garden:");
+		printFlowerHashMap();
 		promptGarden();
 	}
 	
@@ -41,35 +42,24 @@ public class DefineGarden extends Location {
 	 * Prompt user for input regarding what activity they would like to do
 	 */
 	public void promptGarden() {
-		
 		beginningPrompt();
-		if (promptInput.equals("plant") || promptInput.equals("pick")) {
-			addorPickPrompt(promptInput);
-		}
-		if (promptInput.equals("quit")) {
-			
-		}
-		if (promptInput.equals("")){
-			promptInput = gardenUserInput.nextLine();
-			promptGarden();
-		}
-		while (!(promptInput.equals("pick")) && !(promptInput.equals("plant")) && !(promptInput.equals("status")) && !(promptInput.equals("quit"))) {
-			System.out.println("Invalid Input! You can plant and pick flowers, and you can use status to check the status of your garden");
-			 promptInput = gardenUserInput.nextLine();
-		}
-		if (promptInput.equals("status")) {
-			startOver();
-		}
-		
-		
+		validPlantOrPick();
+		inputQuit();
+		invalidInput();
+		inputStatus();
 	}
 	
 	public void beginningPrompt() {
-	System.out.println("You can plant flowers, pick flowers, you have starter garden that you can check by using status and quit to go to a different location");
-	System.out.println("What would you like to do?");
-	promptInput = gardenUserInput.nextLine();
-}
+		System.out.println("You can type plant, pick, status or quit to plant/pick flowers, check the status of the garden or go to a different location");
+		System.out.println("What would you like to do?");
+		promptInput = gardenUserInput.nextLine();
+	}
 	
+<<<<<<< HEAD
+	public void inputStatus() {
+		if (promptInput.equals("status")) {
+			startOver();
+=======
 	/**
 	 * Prompt user for the flower they want to perform an action for and execute that action accordingly
 	 * @param promptInput The action the user is performing for whichever flower they input
@@ -80,26 +70,59 @@ public class DefineGarden extends Location {
 
 		while (flowersInGarden.getOrDefault(flowerName, null) == null) {
 			flowerName = existingFlower(flowerName);
+>>>>>>> branch 'Garden' of https://github.com/CSE237SP2022/project-lily_amaya_stephanie_david.git
 		}
+	}
+	
+	
+	public void invalidInput() {
+		while (!(promptInput.equals("pick")) && !(promptInput.equals("plant")) && !(promptInput.equals("status")) && !(promptInput.equals("quit"))) {
+			System.out.println("Invalid Input! You can plant and pick flowers, and you can use status to check the status of your garden");
+			 promptInput = gardenUserInput.nextLine();
+		}
+	}
+	
+	
+	public void inputQuit() {
+		if (promptInput.equals("quit")) {
+			//goes back to the main portion of the park to allow user to go to different location
+		}
+	}
+	
+	public void validPlantOrPick() {
+		if (promptInput.equals("plant") || promptInput.equals("pick")) {
+			addorPickPrompt();
+		}
+	}
+	
+	
+	public void addorPickPrompt () {
+		String flowerName = getFlowerName();
 		if (promptInput.equals("pick")) {
 			flowerName = zeroFlowers(flowerName);
 			pickFlower(flowerName);
 		}
-		
 		else if (promptInput.equals("plant")) {
 			addFlower(flowerName);
 		}	
 	}
 	
+	public String getFlowerName() {
+		System.out.println("What Flower would you like to " + promptInput + "?");
+		String flowerName = gardenUserInput.nextLine();
+		return flowerName = existingFlower(flowerName);
+	}
 	
-	public String existingFlower(String flowerName) {
+	public String existingFlower(String flowerName) {	
+		while (flowersInGarden.getOrDefault(flowerName, null) == null) {
 			System.out.println("Invalid Flower name! The valid flower names are: roses, dandalions, sunflowers, marigolds, begonias");
 	
   public void zeroFlowers (String flowerName) {
 		while (flowersInGarden.get(flowerName) == 0) {
 			System.out.println("There are zero flowers! Try adding some flowers before picking!");
 			flowerName = gardenUserInput.nextLine();
-			return flowerName;
+		}
+		return flowerName;
 	}
 	
 	public String zeroFlowers(String flowerName) {
@@ -114,16 +137,16 @@ public class DefineGarden extends Location {
 		return flowerName;
 	}
 	
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'Garden' of https://github.com/CSE237SP2022/project-lily_amaya_stephanie_david.git
 	public void addFlower(String flowerName) {
-		System.out.println("How many Flowers would you like to plant?");
-		int flowerNumber = gardenUserInput.nextInt();
-		gardenUserInput.nextLine();
+		int flowerNumber = getFlowerNumber();
 		if (flowersInGarden.containsKey(flowerName)) {
 			flowersInGarden.put(flowerName, flowersInGarden.get(flowerName) + flowerNumber);
 			startOver();
 		}
-		
 	}
 	
 	
@@ -132,23 +155,50 @@ public class DefineGarden extends Location {
 	 * @param flowerName the flower the user is trying to take
 	 */
 	public void pickFlower(String flowerName) {
-	
-		System.out.println("How many Flowers would you like to pick?");
-		int flowerNumber = gardenUserInput.nextInt();
-		gardenUserInput.nextLine();
-		
+		int flowerNumber = getFlowerNumber();
 		flowerNumber = invalidFlowerNumber(flowerName, flowerNumber);
 		if (flowersInGarden.containsKey(flowerName)) {
 			flowersInGarden.put(flowerName, flowersInGarden.get(flowerName) - flowerNumber);
 			startOver();
 		}
-
 	}
+<<<<<<< HEAD
+	
+	public int getFlowerNumber() {
+		System.out.println("How many Flowers would you like to " + promptInput + "?");
+		int flowerNumber = checkValidInteger();
+		int flowerNumberValid = checkNegativeInteger(flowerNumber);
+		return flowerNumberValid;
+	}
+	
+	
+	public int invalidFlowerNumber(String flowerName, int flowerNumber) {
+=======
 
+>>>>>>> branch 'Garden' of https://github.com/CSE237SP2022/project-lily_amaya_stephanie_david.git
 		while (flowersInGarden.get(flowerName) < flowerNumber) {
-			System.out.println("Invalid number of flowers. You cannot take more flowers than currently in the garden!");
-			 flowerNumber = gardenUserInput.nextInt();
-			 gardenUserInput.nextLine();
+			System.out.println("You cannot take more flowers than currently in the garden! Try Again!");
+			flowerNumber = checkValidInteger();
+		}
+		return flowerNumber;
+	}
+	
+	public int checkValidInteger() {
+		int flowerNumber = 0;
+		while (!gardenUserInput.hasNextInt()) {
+			System.out.println("Please type in a valid integer");
+			gardenUserInput.nextLine();
+		}
+		flowerNumber = gardenUserInput.nextInt();
+		gardenUserInput.nextLine();
+		return flowerNumber;
+	}
+	
+	public int checkNegativeInteger (int flowerNumber) {
+		while (flowerNumber < 0) {
+			System.out.println("Please type in a valid integer");
+			flowerNumber = gardenUserInput.nextInt();
+			gardenUserInput.nextLine();
 		}
 		return flowerNumber;
 	}
@@ -158,16 +208,15 @@ public class DefineGarden extends Location {
 	 */
 	public void startOver () {
 		printFlowerHashMap();
-		System.out.println();
 		promptGarden();	
 	}
-	
 	
 	/**
 	 * Prints the hashmap of all of the flowers in the garden
 	 */
 	public void printFlowerHashMap() {
-		System.out.println(flowersInGarden);
+		System.out.println(flowersInGarden + "\n");
+		
 	}
 
 }
