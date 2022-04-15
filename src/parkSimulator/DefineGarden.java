@@ -180,7 +180,6 @@ public class DefineGarden extends Location {
 		promptGarden();	
 	}
 	
-	
 	/**
 	 * Prints the hashmap of all of the flowers in the garden
 	 */
