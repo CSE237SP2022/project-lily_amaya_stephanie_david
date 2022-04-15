@@ -170,7 +170,6 @@ public class DefineGarden extends Location {
 		return flowerNumber;
 	}
 	
-	
 	public void startOver () {
 		printFlowerHashMap();
 		promptGarden();	
