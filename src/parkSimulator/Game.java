@@ -21,14 +21,14 @@ public class Game {
 		int teamAPoints = randomScore();
 		int teamBPoints = randomScore();
 		if(teamAPoints > teamBPoints) {
-			gameMessage = team + "Wins!" + "Score: " + teamAPoints + "-" + teamBPoints;
+			gameMessage = team + " Wins! " + "Score: " + teamAPoints + "-" + teamBPoints + ". ";
 		}
 		else if(teamAPoints < teamBPoints){
-			gameMessage = team + "Loses!" + "Score: " + teamAPoints + "-" + teamBPoints;
+			gameMessage = team + " Loses! " + "Score: " + teamAPoints + "-" + teamBPoints +". ";
 
 		}
 		else {
-			gameMessage = "you tied. Score:" + teamAPoints + "-" + teamBPoints;
+			gameMessage = "you tied. Score: " + teamAPoints + "-" + teamBPoints + ". ";
 		}
 		 
 		return gameMessage;

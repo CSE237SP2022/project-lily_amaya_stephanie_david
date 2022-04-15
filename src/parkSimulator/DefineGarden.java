@@ -49,16 +49,28 @@ public class DefineGarden extends Location {
 		inputStatus();
 	}
 	
-	
 	public void beginningPrompt() {
 		System.out.println("You can type plant, pick, status or quit to plant/pick flowers, check the status of the garden or go to a different location");
 		System.out.println("What would you like to do?");
 		promptInput = gardenUserInput.nextLine();
 	}
 	
+<<<<<<< HEAD
 	public void inputStatus() {
 		if (promptInput.equals("status")) {
 			startOver();
+=======
+	/**
+	 * Prompt user for the flower they want to perform an action for and execute that action accordingly
+	 * @param promptInput The action the user is performing for whichever flower they input
+	 */
+	public void addorPickPrompt (String promptInput) {
+		System.out.println("What Flower would you like to " + promptInput + "?");
+		String flowerName = gardenUserInput.nextLine();
+
+		while (flowersInGarden.getOrDefault(flowerName, null) == null) {
+			flowerName = existingFlower(flowerName);
+>>>>>>> branch 'Garden' of https://github.com/CSE237SP2022/project-lily_amaya_stephanie_david.git
 		}
 	}
 	
@@ -104,6 +116,10 @@ public class DefineGarden extends Location {
 	public String existingFlower(String flowerName) {	
 		while (flowersInGarden.getOrDefault(flowerName, null) == null) {
 			System.out.println("Invalid Flower name! The valid flower names are: roses, dandalions, sunflowers, marigolds, begonias");
+	
+  public void zeroFlowers (String flowerName) {
+		while (flowersInGarden.get(flowerName) == 0) {
+			System.out.println("There are zero flowers! Try adding some flowers before picking!");
 			flowerName = gardenUserInput.nextLine();
 		}
 		return flowerName;
@@ -112,11 +128,19 @@ public class DefineGarden extends Location {
 	public String zeroFlowers(String flowerName) {
 		while (flowersInGarden.get(flowerName) == 0) {
 			System.out.println("There are zero flowers! What other flowers would you like to pick?");
+
+	public void existingFlower(String flowerName) {
+		while (flowersInGarden.getOrDefault(flowerName, null) == null) {
+			System.out.println("Invalid Flower name! The valid flower names are: roses, dandalions, sunflowers, marigolds, begonias");
 			flowerName = gardenUserInput.nextLine();
 		}
 		return flowerName;
 	}
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'Garden' of https://github.com/CSE237SP2022/project-lily_amaya_stephanie_david.git
 	public void addFlower(String flowerName) {
 		int flowerNumber = getFlowerNumber();
 		if (flowersInGarden.containsKey(flowerName)) {
@@ -125,6 +149,11 @@ public class DefineGarden extends Location {
 		}
 	}
 	
+	
+	/**
+	 * Prompt user to pick flower(s)
+	 * @param flowerName the flower the user is trying to take
+	 */
 	public void pickFlower(String flowerName) {
 		int flowerNumber = getFlowerNumber();
 		flowerNumber = invalidFlowerNumber(flowerName, flowerNumber);
@@ -133,6 +162,7 @@ public class DefineGarden extends Location {
 			startOver();
 		}
 	}
+<<<<<<< HEAD
 	
 	public int getFlowerNumber() {
 		System.out.println("How many Flowers would you like to " + promptInput + "?");
@@ -143,6 +173,9 @@ public class DefineGarden extends Location {
 	
 	
 	public int invalidFlowerNumber(String flowerName, int flowerNumber) {
+=======
+
+>>>>>>> branch 'Garden' of https://github.com/CSE237SP2022/project-lily_amaya_stephanie_david.git
 		while (flowersInGarden.get(flowerName) < flowerNumber) {
 			System.out.println("You cannot take more flowers than currently in the garden! Try Again!");
 			flowerNumber = checkValidInteger();
@@ -170,6 +203,9 @@ public class DefineGarden extends Location {
 		return flowerNumber;
 	}
 	
+	/**
+	 * Print the flower hash map and prompt user
+	 */
 	public void startOver () {
 		printFlowerHashMap();
 		promptGarden();	
