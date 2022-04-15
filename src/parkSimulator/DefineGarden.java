@@ -38,7 +38,6 @@ public class DefineGarden extends Location {
 		promptGarden();
 	}
 	
-	
 	/**
 	 * Prompt user for input regarding what activity they would like to do
 	 */
@@ -118,14 +117,12 @@ public class DefineGarden extends Location {
 		return flowerName;
 	}
 	
-	
 	public void addFlower(String flowerName) {
 		int flowerNumber = getFlowerNumber();
 		if (flowersInGarden.containsKey(flowerName)) {
 			flowersInGarden.put(flowerName, flowersInGarden.get(flowerName) + flowerNumber);
 			startOver();
 		}
-		
 	}
 	
 	public void pickFlower(String flowerName) {
@@ -135,7 +132,6 @@ public class DefineGarden extends Location {
 			flowersInGarden.put(flowerName, flowersInGarden.get(flowerName) - flowerNumber);
 			startOver();
 		}
-
 	}
 	
 	public int getFlowerNumber() {
@@ -153,7 +149,6 @@ public class DefineGarden extends Location {
 		}
 		return flowerNumber;
 	}
-	
 	
 	public int checkValidInteger() {
 		int flowerNumber = 0;
