@@ -19,14 +19,12 @@ public class GardenTestSuite {
 
 	
 	private DefineGarden garden;
-	//private HashMap<String,Integer> flowersInGarden;
 
 	
 	 @Before
 	 public void setup() {
 		garden = new DefineGarden("Test Garden"); 
 	}
-	//need a way to add or initialize flowers in the garden
 
 	
 	
@@ -73,13 +71,13 @@ public class GardenTestSuite {
 	
 	@Test
 	public void PickFlowerValid() {
-		int accurateFlowerNumber = garden.updatedPickFlower("sunflowers", 1);
+		int accurateFlowerNumber = garden.extractFlowers("sunflowers", 1);
 		assertTrue(accurateFlowerNumber == 9);
 	}
 	
 	@Test 
 	public void PickFlowerZero() {
-		garden.updatedPickFlower("marigolds", 3);
+		garden.extractFlowers("marigolds", 3);
 		String result = garden.zeroFlowers("marigolds");
 		assertTrue(result.equals("null"));
 	}
@@ -104,30 +102,16 @@ public class GardenTestSuite {
 	
 	@Test 
 	public void negativeIntegerCheckNegativeNumber() {
-		int result = garden.checkNegativeInteger(-9);
+		int result = garden.negativeInteger(-9);
 		assertTrue(result==-1);
 	}
 	
 	@Test 
 	public void negativeIntegerCheckPositiveNumber() {
-		int result = garden.checkNegativeInteger(9);
+		int result = garden.negativeInteger(9);
 		assertTrue(result==9);
 	}
 	
-	
-//	@Test 
-//	public void checkIntegerValidNumber() {
-//		int result = garden.checkValidInteger();
-//		assertTrue(result==);
-//	}
-	
-
-	//existingFlower
-	//zeroFlowers
-	//getFLowerNumber
-	//InvalidFlowerNumber
-	//checkValidInteger
-	//checkNegativeInteger
 	
 	
 	
