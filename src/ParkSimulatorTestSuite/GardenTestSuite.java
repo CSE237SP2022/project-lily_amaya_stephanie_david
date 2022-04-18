@@ -4,7 +4,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -15,65 +18,99 @@ import parkSimulator.DefineGarden;
 public class GardenTestSuite {
 
 	
+	private DefineGarden garden;
+
+	
+	 @Before
+	 public void setup() {
+		garden = new DefineGarden("Test Garden"); 
+	}
+
+	
+	
 	@Test
 	public void printflowerHashMap() {
 		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	    System.setOut(new PrintStream(outContent));
 	      
-	   DefineGarden garden = new DefineGarden("Test Garden");
 	    garden.printFlowerHashMap();
 	     
-	     String expectedOutput  = "{marigolds=3, dandalions=6, begonias=8, sunflowers=10, roses=4}\n"; 
-
-	     assertEquals(expectedOutput, outContent.toString());
-	}
-	
-	@Test 
-	public void promptOutput() {
-		
-		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	    System.setOut(new PrintStream(outContent));
-	      
-	    DefineGarden garden = new DefineGarden("Test Garden");
-	    //You can type any form of input into console
-	    garden.beginningPrompt();
-	     
-	    String expectedOutput  = "You can plant flowers, pick flowers, you have starter garden that you can check by using status and quit to go to a different location\nWhat would you like to do?\n"; 
+	    String expectedOutput  = "{marigolds=3, dandalions=6, begonias=8, sunflowers=10, roses=4}\n\n"; 
 
 	    assertEquals(expectedOutput, outContent.toString());
-		
 	}
 	
-	
-	//tests to see if trying to pick/plant a flower not in the hashmap catches an error
 	@Test 
-	public void existingFlowerTest() {
+	public void existingFlowerTestValid() {
 		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	    System.setOut(new PrintStream(outContent));
 	    
-	    DefineGarden garden = new DefineGarden("Test Garden");
-	    //for the following type in roses
-		garden.existingFlower("Tulip");
+		String flowerName = garden.existingFlower("roses");
 		
-		String expectedOutput  = "Invalid Flower name! The valid flower names are: roses, dandalions, sunflowers, marigolds, begonias\n"; 
-	   assertEquals(expectedOutput, outContent.toString());
-
+		assertTrue(flowerName.equals("roses"));
 	}
 	
 	@Test 
+	public void ExistingFlowerTestInvalid() {
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	    System.setOut(new PrintStream(outContent));
+	    
+		String flowerName = garden.existingFlower("Tulips");
+		
+		assertTrue(flowerName.equals("null"));
+	}
+	
+	
+	@Test
+	public void insertFlowerValid() {
+		int accurateFlowerNumber = garden.insertFlower("roses", 10);
+		assertTrue(accurateFlowerNumber == 14);
+	}
+
+
+	
+	@Test
+	public void PickFlowerValid() {
+		int accurateFlowerNumber = garden.extractFlowers("sunflowers", 1);
+		assertTrue(accurateFlowerNumber == 9);
+	}
+	
+	@Test 
+	public void PickFlowerZero() {
+		garden.extractFlowers("marigolds", 3);
+		String result = garden.zeroFlowers("marigolds");
+		assertTrue(result.equals("null"));
+	}
+
+	@Test 
+	public void PickFlowerNonZero() {
+		String result = garden.zeroFlowers("marigolds");
+		assertTrue(result.equals("marigolds"));
+	}
+	
+
+	@Test 
+	public void validFlowerNumberTest() {
+		int accurateFlowerNumber = garden.invalidFlowerNumber("sunflowers", 1);
+		assertTrue(accurateFlowerNumber == 1);
+	}
+	
 	public void invalidFlowerNumberTest() {
-		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	    System.setOut(new PrintStream(outContent));
-	    
-	    DefineGarden garden = new DefineGarden("Test Garden");
-	    //for the following type in 1
-		garden.invalidFlowerNumber("roses", Integer.MAX_VALUE);
-		String expectedOutput  = "Invalid number of flowers. You cannot take more flowers than currently in the garden!\n"; 
-	   assertEquals(expectedOutput, outContent.toString());
-
+		int accurateFlowerNumber = garden.invalidFlowerNumber("sunflowers", 100);
+		assertTrue(accurateFlowerNumber == -1);
 	}
 	
-
+	@Test 
+	public void negativeIntegerCheckNegativeNumber() {
+		int result = garden.negativeInteger(-9);
+		assertTrue(result==-1);
+	}
+	
+	@Test 
+	public void negativeIntegerCheckPositiveNumber() {
+		int result = garden.negativeInteger(9);
+		assertTrue(result==9);
+	}
 	
 	
 	
