@@ -68,6 +68,14 @@ public class GardenTestSuite {
 		assertTrue(accurateFlowerNumber == 14);
 	}
 
+	@Test
+	public void insertFlowerValidMultiple() {
+		int accurateFlowerNumber = 0;
+		garden.insertFlower("roses", 10);
+		accurateFlowerNumber = garden.insertFlower("roses", 6);
+		
+		assertTrue(accurateFlowerNumber == 20);
+	}
 
 	
 	@Test
@@ -75,6 +83,15 @@ public class GardenTestSuite {
 		int accurateFlowerNumber = garden.extractFlowers("sunflowers", 1);
 		
 		assertTrue(accurateFlowerNumber == 9);
+	}
+	
+
+	@Test
+	public void PickFlowerValidMultiple() {
+		int accurateFlowerNumber = 0;
+		garden.extractFlowers("sunflowers", 2);
+		accurateFlowerNumber = garden.extractFlowers("sunflowers", 2);
+		assertTrue(accurateFlowerNumber == 6);
 	}
 	
 	@Test 
