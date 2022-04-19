@@ -35,9 +35,9 @@ public class DefineGarden extends Location {
 	
 	public void promptGarden() {
 		welcomePrompt();
-		invalidInput();
 		inputPlantOrPick();
 		inputQuit();
+		invalidInput();
 		inputStatus();
 	}
 	
@@ -68,7 +68,7 @@ public class DefineGarden extends Location {
 
 	
 	public String getFlowerName() {
-		System.out.println("What Flower would you like to " + promptInput + "?");
+		System.out.println("What flower would you like to " + promptInput + "?");
 		String flowerName = gardenUserInput.nextLine();
 		flowerName = checkIfExistingFlower(flowerName);
 		return flowerName;
@@ -117,14 +117,11 @@ public class DefineGarden extends Location {
 	private int checkIfInvalidNumberInput(String flowerName, int flowerNumber) {
 		while (invalidFlowerNumber(flowerName, flowerNumber) == -1) {
 			System.out.println("You cannot take more flowers than currently in the garden! Try Again!");
-			flowerNumber = gardenUserInput.nextInt();
-			gardenUserInput.nextLine();
 			flowerNumber = invalidFlowerNumber(flowerName, flowerNumber);
-			
-			
 		}
 		return flowerNumber;
 	}
+	
 	
 	
 	public void inputStatus() {
@@ -177,11 +174,9 @@ public class DefineGarden extends Location {
 	
 	
 	public int getFlowerNumber() {
-		System.out.println("How many flowers would you like to " + promptInput + "?" + " *Only Input Integers*");
+		System.out.println("How many flowers would you like to " + promptInput + "?" + " (Input Integers only)");
 		int flowerNumber = gardenUserInput.nextInt();
-		
-		//flowerNumber = checkValidInteger();
-		
+		gardenUserInput.nextLine();
 		flowerNumber = checkNegativeInput(flowerNumber);
 		return flowerNumber;
 	}
@@ -198,19 +193,6 @@ public class DefineGarden extends Location {
 	}
 	
 	
-	
-//	public int checkValidInteger() {
-//		int flowerNumber = 0;
-//		while (!gardenUserInput.hasNextInt()) {
-//			System.out.println("Please type in a valid integer");
-//			gardenUserInput.nextLine();
-//		}
-//		flowerNumber = gardenUserInput.nextInt();
-//		gardenUserInput.nextLine();
-//		checkNegativeInput(flowerNumber);
-//		return flowerNumber;
-//	}
-	
 	public int negativeInteger (int flowerNumber) {
 		while (flowerNumber < 0) {
 			return -1;
@@ -219,7 +201,6 @@ public class DefineGarden extends Location {
 	}
 	
 	public void startOver () {
-		gardenUserInput.nextLine();
 		printFlowerHashMap();
 		promptGarden();	
 	}
