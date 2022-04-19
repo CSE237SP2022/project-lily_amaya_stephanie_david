@@ -64,6 +64,7 @@ public class GardenTestSuite {
 	@Test
 	public void insertFlowerValid() {
 		int accurateFlowerNumber = garden.insertFlower("roses", 10);
+		
 		assertTrue(accurateFlowerNumber == 14);
 	}
 
@@ -72,6 +73,7 @@ public class GardenTestSuite {
 	@Test
 	public void PickFlowerValid() {
 		int accurateFlowerNumber = garden.extractFlowers("sunflowers", 1);
+		
 		assertTrue(accurateFlowerNumber == 9);
 	}
 	
@@ -79,12 +81,14 @@ public class GardenTestSuite {
 	public void PickFlowerZero() {
 		garden.extractFlowers("marigolds", 3);
 		String result = garden.zeroFlowers("marigolds");
+		
 		assertTrue(result.equals("null"));
 	}
 
 	@Test 
 	public void PickFlowerNonZero() {
 		String result = garden.zeroFlowers("marigolds");
+		
 		assertTrue(result.equals("marigolds"));
 	}
 	
@@ -92,32 +96,29 @@ public class GardenTestSuite {
 	@Test 
 	public void validFlowerNumberTest() {
 		int accurateFlowerNumber = garden.invalidFlowerNumber("sunflowers", 1);
+		
 		assertTrue(accurateFlowerNumber == 1);
 	}
 	
 	public void invalidFlowerNumberTest() {
 		int accurateFlowerNumber = garden.invalidFlowerNumber("sunflowers", 100);
+		
 		assertTrue(accurateFlowerNumber == -1);
 	}
 	
 	@Test 
 	public void negativeIntegerCheckNegativeNumber() {
 		int result = garden.negativeInteger(-9);
+		
 		assertTrue(result==-1);
 	}
 	
 	@Test 
 	public void negativeIntegerCheckPositiveNumber() {
 		int result = garden.negativeInteger(9);
+		
 		assertTrue(result==9);
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
