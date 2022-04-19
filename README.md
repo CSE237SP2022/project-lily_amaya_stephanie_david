@@ -21,9 +21,6 @@ cd to the location project-lily_amaya_stephanie_david/src
 run the script by typing: ./park_script.sh
 (If something goes wrong with this, it may be necessary to change the permissions of the park_script.sh file)
 
-Several of the unit tests need user input to be completed: 
-When running the unit test for GardenTestSuite you need to input in this order:
-1. any input 
-2. 1
-3. roses
+# Iteration 3
+All functionality in the location Garden is implemented. The user must put an integer when they are prompted for the number of flowers to pick/prompt or an error will be thrown, which we are working on fixing. Lots of tests for the garden test suite were added. May not have an increased amount of functionality, but lots of focus on code cleanliness. 
 
