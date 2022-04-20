@@ -123,7 +123,6 @@ public class DefineGarden extends Location {
 	}
 	
 	
-	
 	public void inputStatus() {
 		if (promptInput.equals("status")) {
 			startOver();
@@ -144,7 +143,6 @@ public class DefineGarden extends Location {
 			//goes back to the main portion of the park to allow user to go to different location
 		}
 	}
-	
 	
 	public void addFlower(String flowerName) {
 		int flowerNumber = getFlowerNumber();
@@ -175,21 +173,28 @@ public class DefineGarden extends Location {
 	
 	public int getFlowerNumber() {
 		System.out.println("How many flowers would you like to " + promptInput + "?" + " (Input Integers only)");
-		int flowerNumber = gardenUserInput.nextInt();
-		gardenUserInput.nextLine();
-		flowerNumber = checkNegativeInput(flowerNumber);
-		return flowerNumber;
+		String flowerNumber = "";
+		
+		boolean positiveInteger = false;
+		while (positiveInteger == false) {
+			flowerNumber = gardenUserInput.nextLine();
+			positiveInteger = checkNegativeInput(flowerNumber);
+		}
+		
+		return Integer.parseInt(flowerNumber);
 	}
 
 
-	private int checkNegativeInput(int flowerNumber) {
-		while (negativeInteger(flowerNumber) == -1) {
-			System.out.println("Please type in a valid integer");
-			flowerNumber = gardenUserInput.nextInt();
-			gardenUserInput.nextLine();
-			flowerNumber = negativeInteger(flowerNumber);
+	private boolean checkNegativeInput(String flowerNumber) {
+		if (gardenUserInput.hasNextInt()) {
+			int integerFlowerNumber = Integer.parseInt(gardenUserInput.nextLine());
+			if (integerFlowerNumber > 0) {
+				return true;
+			}
 		}
-		return flowerNumber;
+	
+		
+		return false;
 	}
 	
 	
