@@ -38,7 +38,8 @@ public class DefinePettingZoo extends Location{
 	 * Prompt user for input regarding what action they would like to do
 	 */
 	public String prompt() {
-			System.out.println(message + " (Input \"options\" to see what you can do)");
+			System.out.println(message);
+			listOptions();
 			return userInputScanner.nextLine();
 	}
 	
@@ -47,10 +48,7 @@ public class DefinePettingZoo extends Location{
 	 * @param userInput a String containing the data the user inputs
 	 */
 	public void sendUserToLocation(String userInput) {
-		if(userInput.equals("options")) {
-			listOptions();
-		}
-		else if(userInput.equals("leave petting zoo")) {
+		if(userInput.equals("leave petting zoo")) {
 			userWantsToLeave = true;
 		}
 		else if(userInput.equals("pet")) {
@@ -60,7 +58,7 @@ public class DefinePettingZoo extends Location{
 			feed();
 		}
 		else {
-			System.out.print("Invalid input.\n");
+			System.out.print("Invalid input.\n\n");
 		}
 	}
 	
@@ -118,7 +116,7 @@ public class DefinePettingZoo extends Location{
 	 * Simulates petting a bunny
 	 */
 	public void petBunny() {
-		System.out.println("You are petting a bunny! The bunny's name is Fluffy. She seems happy :)");
+		System.out.println("You are petting a bunny! The bunny's name is Fluffy. She seems happy :)\n");
 		message = "What would you like to do next?";
 	}
 	
@@ -126,7 +124,7 @@ public class DefinePettingZoo extends Location{
 	 * Simulates petting a penguin
 	 */
 	public void petPenguin() {
-		System.out.println("You are petting a penguin! The penguin's name is Guiseppe. Guiseppe is happily flapping his wings :)");
+		System.out.println("You are petting a penguin! The penguin's name is Guiseppe. Guiseppe is happily flapping his wings :)\n");
 		message = "What would you like to do next?";
 	}
 	
@@ -134,7 +132,7 @@ public class DefinePettingZoo extends Location{
 	 * Simulates trying to pet a fish
 	 */
 	public void petFish() {
-		System.out.println("You are trying to pet the fish. The fish's name is Harold. Harold is confused but appreciates the attention. Your hand is wet now.");
+		System.out.println("You are trying to pet the fish. The fish's name is Harold. Harold is confused but appreciates the attention. Your hand is wet now.\n");
 		message = "What would you like to do next?";
 	}
 	
@@ -142,7 +140,7 @@ public class DefinePettingZoo extends Location{
 	 * Simulates petting a puppy
 	 */
 	public void petPuppy() {
-		System.out.println("You are petting the puppy! The puppy's name Donovan. Donovan is VERY happy!! He's excitedly wagging his tail!");
+		System.out.println("You are petting the puppy! The puppy's name Donovan. Donovan is VERY happy!! He's excitedly wagging his tail!\n");
 		boolean bellyRubPossibility = rollForBellyRubPotential(2); //50% chance of getting a belly rub
 		if(bellyRubPossibility) {
 			bellyRubPrompt();
@@ -154,21 +152,21 @@ public class DefinePettingZoo extends Location{
 	 * Asks the user if they would like to give the puppy a belly rub
 	 */
 	private void bellyRubPrompt() {
-		System.out.println("What's this?!? Harold is rolling over on the ground in front of you. It looks like Harold wants a belly rub!");
+		System.out.println("What's this?!? Harold is rolling over on the ground in front of you. It looks like Harold wants a belly rub!\n");
 		boolean invalidBellyRubInput = true;
 		while(invalidBellyRubInput) {
 			System.out.println("Will you give Harold a belly rub? (yes/no)");
 			String userBellyRubResponse = userInputScanner.nextLine();
 			if(userBellyRubResponse.equals("yes")) {
-				System.out.println("Good choice!! Harold looks very happy :)");
+				System.out.println("Good choice!! Harold looks very happy :)\n");
 				invalidBellyRubInput = false;
 			}
 			else if(userBellyRubResponse.equals("no")) {
-				System.out.println("Harold looks disappointed but respects your boundaries.");
+				System.out.println("Harold looks disappointed but respects your boundaries.\n");
 				invalidBellyRubInput = false;
 			}
 			else {
-				System.out.println("Invalid input. Please try again");
+				System.out.println("Invalid input. Please try again\n");
 			}
 		}
 	}
@@ -231,28 +229,28 @@ public class DefinePettingZoo extends Location{
 	 * Simulates feeding a bunny
 	 */
 	public void feedBunny() {
-		System.out.println("You are feeding the bunny, Fluffy, some grass. This is Fluffy's favorite food. Fluffy seems thankful!");
+		System.out.println("You are feeding the bunny, Fluffy, some grass. This is Fluffy's favorite food. Fluffy seems thankful!\n");
 	}
 	
 	/**
 	 * Simulates feeding a penguin
 	 */
 	public void feedPenguin() {
-		System.out.println("You are feeding the penguin, Guiseppe, some krill. Guiseppe really likes this food, and now Guiseppe likes you, too!");
+		System.out.println("You are feeding the penguin, Guiseppe, some krill. Guiseppe really likes this food, and now Guiseppe likes you, too!\n");
 	}
 	
 	/**
 	 * Simulates feeding a fish
 	 */
 	public void feedFish() {
-		System.out.println("You are feeding the fish, Harold, some fish food. Harold seems to like the food. He isn't very emotive, but I'm sure he appreciates it.");
+		System.out.println("You are feeding the fish, Harold, some fish food. Harold seems to like the food. He isn't very emotive, but I'm sure he appreciates it.\n");
 	}
 	
 	/**
 	 * Simulates feeding a puppy
 	 */
 	public void feedPuppy() {
-		System.out.println("You are feeding the puppy, Donovan, some dog treats. Dononvan is eats them very quickly. He is very happy!");
+		System.out.println("You are feeding the puppy, Donovan, some dog treats. Dononvan is eats them very quickly. He is very happy!\n");
 		boolean bellyRubPossibility = rollForBellyRubPotential(4); //25% chance of getting a belly rub
 		if(bellyRubPossibility) {
 			bellyRubPrompt();
