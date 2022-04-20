@@ -78,24 +78,29 @@ public class DefinePettingZoo extends Location{
 	public void pet() {
 		boolean invalidAnimalToPet = true;
 		while(invalidAnimalToPet) {
-			String userInputAnimalToPet = promptPet();
-			if(userInputAnimalToPet.equals("bunny")) {
-				petBunny();
-				invalidAnimalToPet = false;
-			}
-			else if(userInputAnimalToPet.equals("penguin")) {
-				petPenguin();
-				invalidAnimalToPet = false;
-			}
-			else if(userInputAnimalToPet.equals("fish")) {
-				petFish();
-				invalidAnimalToPet = false;
-			}
-			else if(userInputAnimalToPet.equals("puppy")) {
-				petPuppy();
-				invalidAnimalToPet = false;
-			}
+			String userInputToPet = promptPet();	
+			invalidAnimalToPet = sendUserToPet(userInputToPet);
 		}
+	}
+
+	public boolean sendUserToPet(String animalToPet) {
+		if(animalToPet.equals("bunny")) {
+			petBunny();
+			return false;
+		}
+		else if(animalToPet.equals("penguin")) {
+			petPenguin();
+			return false;
+		}
+		else if(animalToPet.equals("fish")) {
+			petFish();
+			return false;
+		}
+		else if(animalToPet.equals("puppy")) {
+			petPuppy();
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -151,24 +156,29 @@ public class DefinePettingZoo extends Location{
 	/**
 	 * Asks the user if they would like to give the puppy a belly rub
 	 */
-	private void bellyRubPrompt() {
-		System.out.println("What's this?!? Harold is rolling over on the ground in front of you. It looks like Harold wants a belly rub!\n");
+	public void bellyRubPrompt() {
+		System.out.println("What's this?!? Harold is rolling over on the ground in front of you. It looks like Harold wants a belly rub!");
 		boolean invalidBellyRubInput = true;
 		while(invalidBellyRubInput) {
 			System.out.println("Will you give Harold a belly rub? (yes/no)");
 			String userBellyRubResponse = userInputScanner.nextLine();
-			if(userBellyRubResponse.equals("yes")) {
-				System.out.println("Good choice!! Harold looks very happy :)\n");
-				invalidBellyRubInput = false;
-			}
-			else if(userBellyRubResponse.equals("no")) {
-				System.out.println("Harold looks disappointed but respects your boundaries.\n");
-				invalidBellyRubInput = false;
-			}
-			else {
-				System.out.println("Invalid input. Please try again\n");
-			}
+			invalidBellyRubInput = sendUserToBellyRub(userBellyRubResponse);
 		}
+	}
+
+	public boolean sendUserToBellyRub(String userBellyRubResponse) {
+		if(userBellyRubResponse.equals("yes")) {
+			System.out.println("Good choice!! Harold looks very happy :)\n");
+			return false;
+		}
+		else if(userBellyRubResponse.equals("no")) {
+			System.out.println("Harold looks disappointed but respects your boundaries.\n");
+			return false;
+		}
+		else {
+			System.out.println("Invalid input. Please try again\n");
+		}
+		return true;
 	}
 	
 	/**
@@ -191,24 +201,29 @@ public class DefinePettingZoo extends Location{
 		boolean invalidAnimalToFeed = true;
 		while(invalidAnimalToFeed) {
 			String userInputAnimalToFeed = promptFeed();
-			if(userInputAnimalToFeed.equals("bunny")) {
-				feedBunny();
-				invalidAnimalToFeed = false;
-			}
-			else if(userInputAnimalToFeed.equals("penguin")) {
-				feedPenguin();
-				invalidAnimalToFeed = false;
-			}
-			else if(userInputAnimalToFeed.equals("fish")) {
-				feedFish();
-				invalidAnimalToFeed = false;
-			}
-			else if(userInputAnimalToFeed.equals("puppy")) {
-				feedPuppy();
-				invalidAnimalToFeed = false;
-			}
+			invalidAnimalToFeed = sendUserToFeed(userInputAnimalToFeed);
 		}
 		message = "What would you like to do next?";
+	}
+
+	public boolean sendUserToFeed(String userInputAnimalToFeed) {
+		if(userInputAnimalToFeed.equals("bunny")) {
+			feedBunny();
+			return false;
+		}
+		else if(userInputAnimalToFeed.equals("penguin")) {
+			feedPenguin();
+			return false;
+		}
+		else if(userInputAnimalToFeed.equals("fish")) {
+			feedFish();
+			return false;
+		}
+		else if(userInputAnimalToFeed.equals("puppy")) {
+			feedPuppy();
+			return false;
+		}
+		return true;
 	}
 	
 	/**

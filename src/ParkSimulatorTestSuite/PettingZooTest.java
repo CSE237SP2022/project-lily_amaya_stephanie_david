@@ -17,11 +17,6 @@ class PettingZooTest {
 	//I am not testing the prompt, pettingZooSimulator, promptPet, promptFeed, or bellyRubPrompt methods because they all require user input. 
 	//Testing these methods would essentially be testing to see if the Scanner works.
 	
-	//I am currently not testing the pet or feed method yet because they use user input. In the next iteration, I plan to extract the user input part 
-	//from these methods.
-	//The petPuppy and feedPuppy methods sometimes require user input (depending on whether the puppy wants a belly rub). In a future iteration, I will 
-	//try to come up with a way to test these method. 
-	
 	private DefinePettingZoo pettingZoo;
 	
 	@BeforeEach
@@ -52,7 +47,43 @@ class PettingZooTest {
 
 	    assertEquals(expectedOutput, outContent.toString().trim());
 	}
+	
+	@Test
+	void testSendUserToPetBunny() {
+		String animal = "bunny";
+		
+	    boolean didTheUserPetTheAnimal = !(pettingZoo.sendUserToPet(animal));
 
+	    assertTrue(didTheUserPetTheAnimal);
+	}
+
+	@Test
+	void testSendUserToPetFish() {
+		String animal = "fish";
+		
+	    boolean didTheUserPetTheAnimal = !(pettingZoo.sendUserToPet(animal));
+
+	    assertTrue(didTheUserPetTheAnimal);
+	}
+	
+	@Test
+	void testSendUserToPetPenguin() {
+		String animal = "penguin";
+		
+	    boolean didTheUserPetTheAnimal = !(pettingZoo.sendUserToPet(animal));
+
+	    assertTrue(didTheUserPetTheAnimal);
+	}
+	
+	@Test
+	void testSendUserToPetInvalid() {
+		String animal = "invalid";
+		
+	    boolean didTheUserGetRePrompted = pettingZoo.sendUserToPet(animal);
+
+	    assertTrue(didTheUserGetRePrompted);
+	}
+	
 	@Test
 	void petBunnyTest() {
 		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -84,6 +115,42 @@ class PettingZooTest {
 	    String expectedOutput  = "You are trying to pet the fish. The fish's name is Harold. Harold is confused but appreciates the attention. Your hand is wet now.";
 
 	    assertEquals(expectedOutput, outContent.toString().trim());
+	}
+	
+	@Test
+	void testSendUserToFeedBunny() {
+		String animal = "bunny";
+		
+	    boolean didTheUserFeedTheAnimal = !(pettingZoo.sendUserToFeed(animal));
+
+	    assertTrue(didTheUserFeedTheAnimal);
+	}
+
+	@Test
+	void testSendUserToFeedFish() {
+		String animal = "fish";
+		
+		boolean didTheUserFeedTheAnimal = !(pettingZoo.sendUserToFeed(animal));
+
+	    assertTrue(didTheUserFeedTheAnimal);
+	}
+	
+	@Test
+	void testSendUserToFeedPenguin() {
+		String animal = "penguin";
+		
+		boolean didTheUserFeedTheAnimal = !(pettingZoo.sendUserToFeed(animal));
+
+	    assertTrue(didTheUserFeedTheAnimal);
+	}
+	
+	@Test
+	void testSendUserToFeedInvalid() {
+		String animal = "invalid";
+		
+	    boolean didTheUserGetRePrompted = pettingZoo.sendUserToFeed(animal);
+
+	    assertTrue(didTheUserGetRePrompted);
 	}
 	
 	@Test
@@ -132,4 +199,33 @@ class PettingZooTest {
 	    boolean expectedOutput = true;
 	    assertEquals(expectedOutput, wasThereABellyRub);
 	}
+	
+	@Test
+	void testSendUserToBellyRubYes() {
+		String bellyRub = "yes";
+		
+		boolean didThePuppyGetABellyRub = !(pettingZoo.sendUserToBellyRub(bellyRub));
+		
+		assertTrue(didThePuppyGetABellyRub);
+	}
+	
+	@Test
+	void testSendUserToBellyRubNo() {
+		String bellyRub = "no";
+		
+		boolean didThePuppyGetABellyRub = !(pettingZoo.sendUserToBellyRub(bellyRub));
+		
+		assertTrue(didThePuppyGetABellyRub);
+	}
+	
+	@Test
+	void testSendUserToBellyRubInvalid() {
+		String bellyRub = "invalid";
+		
+		boolean didTheUserGetRePrompted = pettingZoo.sendUserToBellyRub(bellyRub);
+		
+		assertTrue(didTheUserGetRePrompted);
+	}
+	
+	
 }
