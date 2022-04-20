@@ -68,7 +68,7 @@ public class DefineGarden extends Location {
 
 	
 	public String getFlowerName() {
-		System.out.println("What Flower would you like to " + promptInput + "?");
+		System.out.println("What flower would you like to " + promptInput + "?");
 		String flowerName = gardenUserInput.nextLine();
 		flowerName = checkIfExistingFlower(flowerName);
 		return flowerName;
@@ -174,14 +174,9 @@ public class DefineGarden extends Location {
 	
 	
 	public int getFlowerNumber() {
-		System.out.println("How many Flowers would you like to " + promptInput + "?");
-		//boolean checkForPositiveNumber = true;
-		int flowerNumber = 0;
-		
-		if (checkValidInteger() != -1 && checkNegativeInput(flowerNumber) != -1) {
-			
-		}
-		flowerNumber = checkValidInteger();
+		System.out.println("How many flowers would you like to " + promptInput + "?" + " (Input Integers only)");
+		int flowerNumber = gardenUserInput.nextInt();
+		gardenUserInput.nextLine();
 		flowerNumber = checkNegativeInput(flowerNumber);
 		return flowerNumber;
 	}
@@ -197,19 +192,6 @@ public class DefineGarden extends Location {
 		return flowerNumber;
 	}
 	
-	
-	
-	public int checkValidInteger() {
-		int flowerNumber = 0;
-		while (!gardenUserInput.hasNextInt()) {
-			System.out.println("Please type in a valid integer");
-			gardenUserInput.nextLine();
-		}
-		flowerNumber = gardenUserInput.nextInt();
-		gardenUserInput.nextLine();
-		checkNegativeInput(flowerNumber);
-		return flowerNumber;
-	}
 	
 	public int negativeInteger (int flowerNumber) {
 		while (flowerNumber < 0) {

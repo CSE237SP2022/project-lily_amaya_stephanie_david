@@ -70,27 +70,16 @@ public class Park {
 	 */
 	public String getUserLocation(String locationInputString) {
 			if(locationInputString.equals("garden")) {
-				DefineGarden garden = new DefineGarden("garden");
-				garden.gardenSimulator();
-				message = "Where would you like to go next?";
-
+				gardenLocation();
 			}
 			else if(locationInputString.equals("petting zoo")) {
-				DefinePettingZoo pettingZoo = new DefinePettingZoo("Stephanie's Petting Zoo");
-				pettingZoo.pettingZooSimulator();
-				message = "Where would you like to go next?";
-
+				pettingZooLocation();
 			}
 			else if(locationInputString.equals("basketball court")) {
-				DefineBasketballCourt basketballCourt = new DefineBasketballCourt("basketball court");
-				basketballCourt.basketballCourtSimulator();
-				message = "Where would you like to go next??";
-
+				basketballLocation();
 			}
 			else if(locationInputString.equals("pool")) {
-				DefinePool pool = new DefinePool("Pool", 6, 10);
-				pool.poolSimulator();
-				message = "Where would you like to go next?";
+				poolLocation();
 			}
 			else if(locationInputString.equals("leave")) {
 				message = "leave";
@@ -102,5 +91,33 @@ public class Park {
 			return message;
 
 		
+	}
+
+	private void poolLocation() {
+		DefinePool pool = new DefinePool("Pool", 6, 10);
+		pool.poolSimulator();
+		leaveMessage();
+	}
+
+	private void leaveMessage() {
+		message = "Where would you like to go next?";
+	}
+
+	private void basketballLocation() {
+		DefineBasketballCourt basketballCourt = new DefineBasketballCourt("basketball court");
+		basketballCourt.basketballCourtSimulator();
+		leaveMessage();
+	}
+
+	private void pettingZooLocation() {
+		DefinePettingZoo pettingZoo = new DefinePettingZoo("Stephanie's Petting Zoo");
+		pettingZoo.pettingZooSimulator();
+		leaveMessage();
+	}
+
+	private void gardenLocation() {
+		DefineGarden garden = new DefineGarden("garden");
+		garden.gardenSimulator();
+		leaveMessage();
 	}
 }
