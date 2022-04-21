@@ -35,9 +35,9 @@ public class DefineGarden extends Location {
 	
 	public void promptGarden() {
 		welcomePrompt();
-		invalidInput();
 		inputPlantOrPick();
 		inputQuit();
+		invalidInput();
 		inputStatus();
 	}
 	
@@ -117,11 +117,11 @@ public class DefineGarden extends Location {
 	private int checkIfInvalidNumberInput(String flowerName, int flowerNumber) {
 		while (invalidFlowerNumber(flowerName, flowerNumber) == -1) {
 			System.out.println("You cannot take more flowers than currently in the garden! Try Again!");
-			flowerNumber = gardenUserInput.nextInt();
 			flowerNumber = invalidFlowerNumber(flowerName, flowerNumber);
 		}
 		return flowerNumber;
 	}
+	
 	
 	
 	public void inputStatus() {
@@ -144,6 +144,7 @@ public class DefineGarden extends Location {
 			//goes back to the main portion of the park to allow user to go to different location
 		}
 	}
+	
 	
 	public void addFlower(String flowerName) {
 		int flowerNumber = getFlowerNumber();
@@ -175,38 +176,21 @@ public class DefineGarden extends Location {
 	public int getFlowerNumber() {
 		System.out.println("How many flowers would you like to " + promptInput + "?" + " (Input Integers only)");
 		
-		String flowerNumber = gardenUserInput.next();
+		int flowerNumber = gardenUserInput.nextInt();
 		gardenUserInput.nextLine();
-		boolean positiveInteger = false;
-
-		while (!checkNegativeInput(flowerNumber)) {
-		positiveInteger = checkNegativeInput(flowerNumber);
-		
-		}
-		return Integer.parseInt(flowerNumber);
+		flowerNumber = checkNegativeInput(flowerNumber);
+		return flowerNumber;
 	}
 
 
-	private boolean checkNegativeInput(String flowerNumber) {
-		
-		try {
-		    int validFlowerNumber = Integer.parseInt(flowerNumber);
-		    return true; 
-		} catch (NumberFormatException e) {
-			flowerNumber = gardenUserInput.next();
+	private int checkNegativeInput(int flowerNumber) {
+		while (negativeInteger(flowerNumber) == -1) {
+			System.out.println("Please type in a valid integer");
+			flowerNumber = gardenUserInput.nextInt();
 			gardenUserInput.nextLine();
-		    System.out.println("Please enter a valid integer!");
-		    
+			flowerNumber = negativeInteger(flowerNumber);
 		}
-		return false;
-		
-//		while (negativeInteger(flowerNumber) == -1) {
-//			System.out.println("Please type in a valid integer");
-//			flowerNumber = gardenUserInput.nextInt();
-//			gardenUserInput.nextLine();
-//			flowerNumber = negativeInteger(flowerNumber);
-//		}
-//		return flowerNumber;
+		return flowerNumber;
 	}
 	
 	
