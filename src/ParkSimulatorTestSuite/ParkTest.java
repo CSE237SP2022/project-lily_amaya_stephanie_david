@@ -56,22 +56,6 @@ class ParkTest {
 	    assertEquals(expectedOutput, outContent.toString().trim());
 	}
 	
-	@Test
-	void promptTest() {
-		Park myPark = new Park("Cool Park");
-		Location RockWall = new Location("RockWall");
-		Location Pool = new Location("Pool");
-		myPark.addLocation(RockWall);
-		myPark.addLocation(Pool);
-		
-		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	    System.setOut(new PrintStream(outContent));
-
-	    myPark.prompt();
-	    String expectedOutput  = "Welcome to the park! Where would you like to go? Options are: garden, petting zoo, basketball court, pool";
-
-	    assertEquals(expectedOutput, outContent.toString().trim());
-	}
 	
 	@Test
 	void getUserLocationTest() {
