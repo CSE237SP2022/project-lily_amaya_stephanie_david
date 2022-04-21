@@ -1,7 +1,15 @@
 package parkSimulator;
 
+import java.awt.FlowLayout;
+
+import java.awt.event.KeyEvent;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.*;
+
+import java.awt.Color;
+
 
 public class DefinePool extends Location{
 	
@@ -75,7 +83,8 @@ public class DefinePool extends Location{
 	public void poolSimulator() {
 		System.out.println("Welcome to the " + this.getLocationName() + "!");
 		System.out.println("Does your terminal support ANSI? Type yes or no.");
-		if (!poolUserInput.nextLine().equals("yes")) {
+		String[] validResponses = {"yes","no"};
+		if (!promptUserString("",validResponses).equals("yes")) {
 			this.ansiEnabled=false;
 		}
 		prompt();
@@ -87,7 +96,7 @@ public class DefinePool extends Location{
 	public void prompt() {
 		setANSIColor(7);
 		System.out.println("\nActivities are listed below.\n1. Dive\n2. Fetch Rings\n3. Swim\n4. View Pool Info\n5. Leave Pool\n\n\nWhat would you like to do? (Enter 1-5)");
-		this.currentActivity = poolUserInput.nextInt();
+		this.currentActivity = promptUserNum("",1,5);
 		switchHandler(this.currentActivity);
 	}
 	
@@ -130,7 +139,7 @@ public class DefinePool extends Location{
 	 * Execute dive simulation
 	 */
 	public void dive() {
-		System.out.println("Simulate Dive");
+
 		prompt();
 	}
 	
@@ -139,7 +148,7 @@ public class DefinePool extends Location{
 	 */
 	public void fetchRings() {
 		System.out.println("\nTo catch rings you'll have to enter which spot the ring is at! (1-10)\nWWWWW0WWWW\nHere, you would type \"6\" and press enter.\n0WWWWWWWWW\nHere, you would type \"1\" and press enter.\nIf you're not fast enough someone else might grab them, so hurry!\n\nPress any button and hit enter to continue.");
-		String continuePrompt = poolUserInput.next();
+		promptUserAny();
 		fetchRingGame();
 		prompt();
 	}
@@ -247,15 +256,18 @@ public class DefinePool extends Location{
 		int score=-1;
 		long millis=System.currentTimeMillis(); 
 		String currentTrial="";
+		String endCause="Too Slow! ";
 		while(System.currentTimeMillis() - millis < 2000) {
 			score++;
 			millis=System.currentTimeMillis();  
 			currentTrial=ringFetchGenerator();
 			System.out.println(currentTrial);
-			if(!ringFetchVerify(currentTrial,poolUserInput.nextInt()))
-			break;
+			if(!ringFetchVerify(currentTrial,promptUserNum("",1,10))) {
+			    endCause = "You missed! ";
+				break;
+			}
 		}
-		System.out.println("Game over! Your score was " + score + " points.");
+		System.out.println(endCause + " Your score was " + score + " points.");
 	}
 	
 	/**
@@ -322,6 +334,37 @@ public class DefinePool extends Location{
 		System.out.println("****************************************************");
 		prompt();
 		
+	}
+	
+	public int promptUserNum(String message, int low, int high) {
+		System.out.print(message);
+		while(!poolUserInput.hasNextInt()) {
+			System.out.println("Not a number, try again.");
+			poolUserInput.next();
+		}
+		int input = poolUserInput.nextInt();
+		while (input>high || input<low) {
+			System.out.println("Invalid number. Try again.");
+			input = poolUserInput.nextInt();
+		}
+		return input;
+	}
+	
+	public void promptUserAny() {
+		String blank=poolUserInput.next();
+	}
+	
+	public String promptUserString(String message,String[]validInput) {
+		System.out.print(message);
+		String input;
+		while (true) {
+		input = poolUserInput.nextLine();
+		for (int i=0; i < validInput.length;i++) {
+			if (validInput[i].equalsIgnoreCase(input))
+				return input;
+		}
+		System.out.println("Invalid input, try again.");
+		}
 	}
 	
 	/**
