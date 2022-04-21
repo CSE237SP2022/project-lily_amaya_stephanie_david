@@ -35,9 +35,9 @@ public class DefineGarden extends Location {
 	
 	public void promptGarden() {
 		welcomePrompt();
+		invalidInput();
 		inputPlantOrPick();
 		inputQuit();
-		invalidInput();
 		inputStatus();
 	}
 	
@@ -117,6 +117,7 @@ public class DefineGarden extends Location {
 	private int checkIfInvalidNumberInput(String flowerName, int flowerNumber) {
 		while (invalidFlowerNumber(flowerName, flowerNumber) == -1) {
 			System.out.println("You cannot take more flowers than currently in the garden! Try Again!");
+			flowerNumber = gardenUserInput.nextInt();
 			flowerNumber = invalidFlowerNumber(flowerName, flowerNumber);
 		}
 		return flowerNumber;
@@ -173,28 +174,39 @@ public class DefineGarden extends Location {
 	
 	public int getFlowerNumber() {
 		System.out.println("How many flowers would you like to " + promptInput + "?" + " (Input Integers only)");
-		String flowerNumber = "";
 		
+		String flowerNumber = gardenUserInput.next();
+		gardenUserInput.nextLine();
 		boolean positiveInteger = false;
-		while (positiveInteger == false) {
-			flowerNumber = gardenUserInput.nextLine();
-			positiveInteger = checkNegativeInput(flowerNumber);
-		}
+
+		while (!checkNegativeInput(flowerNumber)) {
+		positiveInteger = checkNegativeInput(flowerNumber);
 		
+		}
 		return Integer.parseInt(flowerNumber);
 	}
 
 
 	private boolean checkNegativeInput(String flowerNumber) {
-		if (gardenUserInput.hasNextInt()) {
-			int integerFlowerNumber = Integer.parseInt(gardenUserInput.nextLine());
-			if (integerFlowerNumber > 0) {
-				return true;
-			}
-		}
-	
 		
+		try {
+		    int validFlowerNumber = Integer.parseInt(flowerNumber);
+		    return true; 
+		} catch (NumberFormatException e) {
+			flowerNumber = gardenUserInput.next();
+			gardenUserInput.nextLine();
+		    System.out.println("Please enter a valid integer!");
+		    
+		}
 		return false;
+		
+//		while (negativeInteger(flowerNumber) == -1) {
+//			System.out.println("Please type in a valid integer");
+//			flowerNumber = gardenUserInput.nextInt();
+//			gardenUserInput.nextLine();
+//			flowerNumber = negativeInteger(flowerNumber);
+//		}
+//		return flowerNumber;
 	}
 	
 	
