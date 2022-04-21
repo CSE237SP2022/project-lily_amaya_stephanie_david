@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class DefineBasketballCourt extends Location {
 
 	private Game newGame;
-	private TrickShotGame otherGame;
+	private TrickShotGame trickShotGame;
 	private Scanner locationInputScanner = new Scanner(System.in);
+	boolean userWantsToLeave = false;
 
 	/**
 	 * Constructor for a Basketball court Location
@@ -15,37 +16,65 @@ public class DefineBasketballCourt extends Location {
 	 */
 	public DefineBasketballCourt(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * Runs simulation of a basketball court
 	 */
 	public void basketballCourtSimulator() {
-		chooseMode();
-		
-
-
+		while(!userWantsToLeave) {
+			chooseMode();
+		}	
 	}
 
 	/**
 	 * Prompt user for input regarding what game mode they would like to play and execute accordingly
 	 */
 	public void chooseMode() {
-		String mode = prompt("Do you want to play HORSE or a game?");
-		if(mode.equals( "game")) {
-			String teamName = prompt("what is your team name?"); 
-			newGame = new Game(teamName);
-			System.out.print(newGame.simulateGame());
+		String gameMode = "invalid";
+		while(gameMode.equals("invalid")) {
+			String userInputMode = prompt("Input HORSE to play a game of HORSE, input game to play a regular game, or input leave to return to the park entrance.");
+			gameMode = checkGame(userInputMode);
+		}	
+		sendUser(gameMode);
+	}
+
+	private void sendUser(String gameMode) {
+		if(gameMode.equals("game")){
+			createAndPlayGame();
 		}
-		else if(mode.equals("HORSE") ||(mode.equals("horse"))) {
-			otherGame = new TrickShotGame();
-			System.out.print(otherGame.playGame());
-			System.out.print(" You played HORSE ");
+		else if(gameMode.equals("horse")) {
+			createAndPlayTrickShot();
+		}
+	}
+	
+	public String checkGame(String userInputMode) {
+		if(userInputMode.equals( "game")) {
+			return "game";
+		}
+		else if(userInputMode.equals("HORSE") ||(userInputMode.equals("horse"))) {
+			return "horse";
+		}
+		else if(userInputMode.equals("leave")) {
+			userWantsToLeave = true;
+			return "leave";
 		}
 		else {
-			chooseMode();
+			System.out.println("Invalid game mode.");
+			return "invalid";
 		}
+	}
+
+	public void createAndPlayTrickShot() {
+		trickShotGame = new TrickShotGame();
+		System.out.println(trickShotGame.playGame());
+		System.out.println(" You played HORSE ");
+	}
+
+	public void createAndPlayGame() {
+		String teamName = prompt("what is your team name?"); 
+		newGame = new Game(teamName);
+		System.out.println(newGame.simulateGame());
 	}
 
 	/**
@@ -53,12 +82,10 @@ public class DefineBasketballCourt extends Location {
 	 * @param message the message to print to the user
 	 */
 	public String prompt(String message) {
-
 		Scanner locationInputScanner = new Scanner(System.in);
-		System.out.print(message);
+		System.out.println(message);
 		String locationInputString = locationInputScanner.nextLine();
 		return locationInputString;
-
 	}
 
 }
