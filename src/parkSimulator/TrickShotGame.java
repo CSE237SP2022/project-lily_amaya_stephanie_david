@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class TrickShotGame {
 
-	private String userScore;
-	private String computerScore;
+	private int userScore;
+	private int computerScore;
 	private String returnMessage;
 	private boolean userFirst;
 	private int range;
@@ -17,8 +17,8 @@ public class TrickShotGame {
 	 * Initializes scores and sets up first turn
 	 */
 	public TrickShotGame() {
-		this.userScore = "HORSE";
-		this.computerScore = "HORSE";
+		this.userScore = 5;
+		this.computerScore = 5;
 		this.returnMessage = "";
 		this.userFirst = true;
 	}
@@ -26,12 +26,12 @@ public class TrickShotGame {
 	 * starts the actual game
 	 * @returns String representing how the game went
 	 */
-	public String playGame() {
+	public String playGame(){
 		System.out.println("You are playing horse. You and your opponent both have 5 lives represented by the word horse.");
 		System.out.println("If you make a shot and your opponent misses they lose a letter");
 		System.out.println("Put in an int from 1-50 to represent your distance from the hoop. As you get farther it will be less likely to go in");
-		round(false,false,userFirst);
-		return " not working yet ";
+		round(true);
+		return " good game! ";
 	}
 	/**
 	 * 
@@ -39,13 +39,10 @@ public class TrickShotGame {
 	 * @param distance range of basketball shot
 	 * @return boolean representing whether the user made this shot
 	 */
-	public boolean userTurn(boolean made, int distance) {
-		if(made) {
-			return takeShot(distance);
-		}
-		else {
-			return takeShot(distance);
-		}
+	public boolean userTurn(int distance) {
+		System.out.println(" The user is now shooting ");
+		return takeShot(distance);
+
 	}
 	/**
 	 * 
@@ -53,37 +50,67 @@ public class TrickShotGame {
 	 * @param distance range of basketball shot
 	 * @return boolean representing whether the computer made this shot
 	 */
-	public boolean computerTurn(boolean made, int distance) {
-		if(made == true) {
-			return takeShot(distance);
-		}
-		else {
-			distance = (int) ((Math.random()*49)+1);
-			return takeShot(distance);
-		}
+	public boolean computerTurn(int distance){
+		System.out.println(" The computer is now shooting ");
+		return takeShot(distance);
 	}
+
 	/**
 	 * 
 	 * @param userMade boolean if user made a shot
 	 * @param compMade boolean if computer made a shot
 	 * @param userFirst boolean turn order
 	 */
-	public void round(boolean userMade, boolean compMade, boolean userFirst) {
-
-		if(userFirst == true) {
-			System.out.print("user: " + this.userScore + " ");
-			System.out.println("computer: " + this.computerScore + " ");
-			getRange("enter shot distance");
-			userMade = userTurn(false, this.range);
-			this.userFirst = !computerTurn(userMade, this.range);
+	public void round(boolean userFirst){
+		if(this.userScore == 0) {
+			System.out.println("You Win");
 		}
-		if(userFirst == false) {
-			System.out.print("user: " + this.userScore);
-			System.out.print("computer: " + this.computerScore);
-			System.out.print("computer goes first");
-			compMade = computerTurn(false, this.range);
-			this.userFirst = userMade = userTurn(compMade, this.range);
+		else if(this.computerScore == 0) {
+			System.out.println("Computer Wins");
+		}
+		else {
+			if(userFirst) {
+				System.out.println("user: " + returnScoreString(this.userScore) + " ");
+				System.out.println("computer: " + returnScoreString(this.computerScore) + " ");
+				System.out.println("user goes first");
+				getRange("enter shot distance");
 
+				boolean userMade = userTurn(this.range);
+				if(userMade) {
+					boolean compMade = computerTurn(this.range);
+					if(compMade) {
+						round(true);
+					}
+					else {
+						this.computerScore--;
+						round(true);
+					}
+				}
+				else {
+					round(false);
+				}
+			}
+			else {
+				System.out.println("user: " + returnScoreString(this.userScore) + " ");
+
+				System.out.println("computer: " + returnScoreString(this.computerScore) + " ");
+				System.out.println("computer goes first");
+				this.range = (int) ((Math.random()*49)+1);
+				boolean compMade = computerTurn(this.range);
+				if(compMade) {
+					boolean userMade = userTurn(this.range);
+					if(userMade) {
+						round(false);
+					}
+					else {
+						this.userScore--;
+						round(false);
+					}
+				}
+				else {
+					round(true);
+				}
+			}
 		}
 
 	}
@@ -137,11 +164,11 @@ public class TrickShotGame {
 			}
 		}
 		if(this.missed == true) {
-			System.out.print("Missed ! ");
+			System.out.println("Missed! ");
 
 			return false;
 		}
-		System.out.print("The shot went in! Distance: " + this.range);
+		System.out.println("The shot went in! Distance: " + this.range + " ");
 		return true;
 
 	}
@@ -167,6 +194,28 @@ public class TrickShotGame {
 			}
 		}
 		return false;
+
+	}
+
+	public String returnScoreString(int score) {
+		if(score == 5) {
+			return "HORSE";
+		}
+		if(score == 4) {
+			return "HORS";
+		}
+		if(score == 3) {
+			return "HOR";
+		}
+		if(score == 2) {
+			return "HO";
+		}
+		if(score == 1) {
+			return "H";
+		}
+		else {
+			return "";
+		}
 
 	}
 }
