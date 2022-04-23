@@ -1,14 +1,18 @@
 package parkSimulator;
 
 import java.awt.FlowLayout;
-
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-
+import java.awt.event.*;
 import javax.swing.*;
-
+import java.util.Timer;
+import java.util.TimerTask;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 
 
 public class DefinePool extends Location{
@@ -18,6 +22,8 @@ public class DefinePool extends Location{
 	private Scanner poolUserInput; //Scanner for user input
 	private int currentActivity; //Track what the user is doing
 	private boolean ansiEnabled; //Determine if user terminal supports ANSI for color encoding
+	private double gameScore;
+	private double gameTimer;
 	
 	
 	/**
@@ -139,7 +145,98 @@ public class DefinePool extends Location{
 	 * Execute dive simulation
 	 */
 	public void dive() {
-
+		JFrame frame = new JFrame("Dive Simulator");
+		frame.pack();
+		DecimalFormat df = new DecimalFormat("#.##");
+	    df.setRoundingMode(RoundingMode.FLOOR);
+		frame.setLayout(new GridLayout(3,1));
+		frame.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		frame.getContentPane().setBackground(new Color(145, 193, 255));
+		frame.setSize(500,500);
+		frame.setResizable(false);	
+		JLabel diveTitle = new JLabel("Diving Simulator",SwingConstants.CENTER);
+		diveTitle.setFont(diveTitle.getFont().deriveFont(48f)); 
+		JLabel instructions = new JLabel("Press the run button as fast as you can to get a good jump!",SwingConstants.CENTER);
+		instructions.setFont(instructions.getFont().deriveFont(16f)); 
+		gameScore=0;
+		JLabel scoreText = new JLabel("Speed: " + gameScore + "MPH",SwingConstants.CENTER);
+		scoreText.setFont(scoreText.getFont().deriveFont(48f)); 
+		JLabel timerText = new JLabel(""+gameTimer,SwingConstants.CENTER);
+		timerText.setFont(timerText.getFont().deriveFont(64f)); 
+		timerText.setForeground(new Color(150,0,0));
+		JButton playButton = new JButton("Play");
+		JButton startButton = new JButton("Start"); 
+		JButton runButton = new JButton("Run!");
+		JButton exitButton = new JButton("Exit");
+		JLabel gameOverText = new JLabel("Game Over! Your final speed was " + gameScore + " mph, you jumped " + df.format(0.47*gameScore) +" feet in the air!",SwingConstants.CENTER) ;
+		gameTimer = 10;
+		exitButton.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){  
+					frame.dispose();
+			        }  
+			    });  
+		
+		playButton.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){  
+			            frame.getContentPane().removeAll();
+			            //add new components
+			            frame.add(instructions);
+			            frame.add(startButton);
+			            frame.validate(); // ensure they are drawn
+			            frame.repaint();
+			        }  
+			    }); 
+		startButton.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){  
+			            frame.getContentPane().removeAll();
+			            gameTimer=10;
+			            gameScore=0;
+			            scoreText.setText("Speed: " + df.format(gameScore) + "MPH");
+			            //add new components
+			            frame.add(scoreText);
+			            frame.add(timerText);
+			            frame.add(runButton);
+			            frame.validate(); // ensure they are drawn
+			            frame.repaint();
+			            new java.util.Timer().scheduleAtFixedRate(new TimerTask(){
+			                @Override
+			                public void run() {
+			                	if (gameTimer<=0.11) {
+			                		exitButton.setEnabled(false);
+			                		frame.getContentPane().removeAll();
+			                		gameOverText.setText("Game Over! Your final speed was " + df.format(gameScore) + " mph, you jumped " + df.format(0.47*gameScore) +" feet in the air!");
+			                		frame.add(gameOverText);
+			                		startButton.setText("Play again");
+			                		frame.add(startButton);
+			                		frame.add(exitButton);
+			                		frame.validate();
+			                		frame.repaint();
+			                		new java.util.Timer().schedule(new TimerTask(){
+						                @Override
+						                public void run() {
+						                	exitButton.setEnabled(true);
+						                }
+						            },3000,3000); 
+			                		cancel(); 		
+			                	}
+			                	timerText.setText(df.format(gameTimer));
+			                    gameTimer-=0.1;
+			                }
+			            },100,100); 
+			        }  
+			    }); 
+		runButton.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){  
+			            gameScore+=0.10;
+			            //add new components
+			            scoreText.setText("Speed: " + df.format(gameScore) + "MPH");
+			        }  
+			    }); 
+		
+		frame.add(diveTitle);
+		frame.add(playButton);
+		frame.add(exitButton);
+		frame.setVisible(true);
 		prompt();
 	}
 	
