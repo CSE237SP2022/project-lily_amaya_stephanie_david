@@ -62,10 +62,10 @@ public class TrickShotGame {
 	 * @param userFirst boolean turn order
 	 */
 	public void round(boolean userFirst){
-		if(this.userScore == 0) {
+		if(this.computerScore == 0) {
 			System.out.println("You Win");
 		}
-		else if(this.computerScore == 0) {
+		else if(this.userScore == 0) {
 			System.out.println("Computer Wins");
 		}
 		else {
@@ -149,8 +149,8 @@ public class TrickShotGame {
 		boolean tookShot = false;
 		this.missed = false;
 		while(tookShot == false) {
-			if(distance > 40) {
-				if(probability > 90) {
+			if(distance > 50) {
+				if(probability > 95) {
 					this.range = distance;
 					return true;
 				}
@@ -197,6 +197,11 @@ public class TrickShotGame {
 
 	}
 
+	/**
+	 * 
+	 * @param score int representing amount of points remaining
+	 * @return String version of score
+	 */
 	public String returnScoreString(int score) {
 		if(score == 5) {
 			return "HORSE";
@@ -218,5 +223,6 @@ public class TrickShotGame {
 		}
 
 	}
+	
 }
 

@@ -8,10 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import parkSimulator.*;
 
 class BasketballCourtTest {
@@ -34,7 +32,6 @@ class BasketballCourtTest {
 		
 		assertEquals(wasGameProperlyChecked, "game");
 	}
-	
 	@Test
 	void checkGameTestHorse() {
 		String userInputMode = "horse";
@@ -64,7 +61,7 @@ class BasketballCourtTest {
 
 	@Test
 	void checkTest() {
-		int probability = 90;
+		int probability = 100;
 		int distance =  4;
 		int lengthCheck = 5;
 		boolean expectedOutput = true;
@@ -87,5 +84,34 @@ class BasketballCourtTest {
 		boolean expected = true;
 		assertEquals(testing, expected);
 	}
-
+	
+	@Test
+	void trickShotTest() {
+		String output =  trickGame.returnScoreString(5);
+		String expected = "HORSE";
+		assertEquals(output, expected);
+	}
+	
+	//5 percent chance of failing
+	@Test
+	void userTurnTest() {
+		boolean output =  trickGame.userTurn(0);
+		boolean expected = true;
+		assertEquals(output, expected);
+	}
+	
+	//5 percent chance of failing
+	@Test
+	void computerTurnTest() {
+		boolean output =  trickGame.computerTurn(0);
+		boolean expected = true;
+		assertEquals(output, expected);
+	}
+	
+	@Test
+	void takeShotTest() {
+		boolean output =  trickGame.takeShot(60);
+		boolean expected = false;
+		assertEquals(output, expected);
+	}
 }
