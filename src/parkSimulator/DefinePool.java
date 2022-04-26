@@ -45,6 +45,8 @@ public class DefinePool extends Location{
 		this.maxPoolDepth = maxDepth;
 		this.poolUserInput = new Scanner(System.in);
 		this.currentActivity=0;
+		this.gameScore=0;
+		this.gameTimer=10;
 	}
 	
 	/**
@@ -58,6 +60,8 @@ public class DefinePool extends Location{
 		this.maxPoolDepth = 4.0;
 		this.poolUserInput = new Scanner(System.in);
 		this.currentActivity=0;
+		this.gameScore=0;
+		this.gameTimer=10;
 	}
 	
 	/**
@@ -82,6 +86,22 @@ public class DefinePool extends Location{
 	 */
 	public int getCurrentActivityNumber() {
 		return this.currentActivity;
+	}
+	
+	public double getGameScore() {
+		return this.gameScore;
+	}
+	
+	public double getGameTimer() {
+		return this.gameTimer;
+	}
+	
+	public void setGameScore(double score) {
+		this.gameScore = score;
+	}
+	
+	public void setGameTimer(double time) {
+		this.gameTimer = time;
 	}
 	
 	
@@ -477,7 +497,6 @@ public class DefinePool extends Location{
 	}
 	
 	public void performRun(Component[] frameComponents) {
-		 DecimalFormat df = new DecimalFormat("#.##");
          gameScore+=0.10;
          JLabel scoreText = (JLabel) frameComponents[7];
          scoreText.setText("Speed: " + df.format(gameScore) + "MPH");

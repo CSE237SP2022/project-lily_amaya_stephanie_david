@@ -3,7 +3,11 @@ package ParkSimulatorTestSuite;
 
 import static org.junit.Assert.*;
 
+import java.awt.Component;
 import java.util.Arrays;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import org.junit.Test;
 
@@ -116,6 +120,59 @@ public class PoolTest {
 		long after = System.currentTimeMillis();
 		long difference = after - before;
 		assertTrue(difference>999 && difference<1100);
+	}
+	
+	@Test
+	public void testResetDiveGame() {
+		DefinePool testPool = new DefinePool("Splash Zone Pool",1.0,9.0);
+		Component[] testComponents = new Component[9];
+		testComponents[7] = new JLabel("Test");
+		testPool.setGameScore(90);
+		testPool.setGameScore(90);
+		testPool.resetDiveGame(testComponents);
+		assertEquals(0,testPool.getGameScore(),0.5);
+		assertEquals(10,testPool.getGameTimer(),0.5);
+	}
+	
+	@Test
+	public void testPerformRun() {
+		DefinePool testPool = new DefinePool("Splash Zone Pool",1.0,9.0);
+		Component[] testComponents = new Component[9];
+		testComponents[7] = new JLabel("Test");
+		testPool.resetDiveGame(testComponents);
+		testPool.performRun(testComponents);
+        JLabel scoreText = (JLabel) testComponents[7];
+		assertEquals(0.1,testPool.getGameScore(),0.01);
+		assertTrue(scoreText.getText().contains("Speed: 0.1MPH") || scoreText.getText().contains("Speed: 0.09MPH"));
+	}
+	
+	@Test
+	public void testDecrementTimer() {
+		DefinePool testPool = new DefinePool("Splash Zone Pool",1.0,9.0);
+		Component[] testComponents = new Component[9];
+		testComponents[8] = new JLabel("Test");
+		testPool.setGameTimer(1.0);
+		testPool.decrementTimer(testComponents);
+		JLabel timerLabel = (JLabel)testComponents[8];
+		assertTrue(timerLabel.getText().equals("1"));
+		assertEquals(0.9,testPool.getGameTimer(),0.05);
+		testPool.decrementTimer(testComponents);
+		assertTrue(timerLabel.getText().contains("0.9"));
+		assertEquals(0.8,testPool.getGameTimer(),0.05);
+	}
+	
+	@Test
+	public void testPrepareGameOverComponents() {
+		DefinePool testPool = new DefinePool("Splash Zone Pool",1.0,9.0);
+		Component[] testComponents = new Component[9];
+		testComponents[1] = new JButton("A");
+		testComponents[6] = new JLabel("B");
+		testPool.prepareGameOverComponents(testComponents);
+		testPool.setGameScore(0.0);
+		JLabel gameOverText = (JLabel)testComponents[6];
+		JButton startButton = (JButton)testComponents[1];
+		assertTrue(gameOverText.getText().equals("Game Over! Your final speed was 0 mph, you jumped 0 feet in the air!"));
+		assertTrue(startButton.getText().equals("Play again"));
 	}
 	
 
