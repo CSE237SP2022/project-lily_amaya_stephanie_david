@@ -21,6 +21,8 @@ All functionality in the location Garden is implemented. Do not insert any lette
 
 The petting zoo is completely functional, letting the user pet and feed four animals. The code is clean, and there are 21 unit tests for the petting zoo. :)
 
+The basketball court is completely functional, the user can play a basketball game (generates a random score) or play horse (input distances for shots). Added more tests for iteration 3
+
 To run the code from the command line:
 cd to the location project-lily_amaya_stephanie_david/src
 run the script by typing: ./park_script.sh
