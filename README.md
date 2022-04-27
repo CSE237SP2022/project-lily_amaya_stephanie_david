@@ -16,11 +16,12 @@ Some of our code doesn't do exactly what we expect, so we will fix these issues 
 
 The code should not throw any errors, but it doesn't always do what we expect it to do.
 
+# Iteration 3
+All functionality in the location Garden is implemented. Do not insert any letter when you are prompted to input the number of flowers you want to pick/plant. Negative numbers should reprompt for valid integer. Lots of tests for the garden test suite were added. May not have an increased amount of functionality, but lots of focus on code cleanliness. 
+
+The petting zoo is completely functional, letting the user pet and feed four animals. The code is clean, and there are 21 unit tests for the petting zoo. :)
+
 To run the code from the command line:
 cd to the location project-lily_amaya_stephanie_david/src
 run the script by typing: ./park_script.sh
 (If something goes wrong with this, it may be necessary to change the permissions of the park_script.sh file)
-
-# Iteration 3
-All functionality in the location Garden is implemented. Do not insert any letter when you are prompted to input the number of flowers you want to pick/plant. Negative numbers should reprompt for valid integer. Lots of tests for the garden test suite were added. May not have an increased amount of functionality, but lots of focus on code cleanliness. 
-
