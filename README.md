@@ -17,11 +17,11 @@ Some of our code doesn't do exactly what we expect, so we will fix these issues 
 The code should not throw any errors, but it doesn't always do what we expect it to do.
 
 # Iteration 3
-All functionality in the location Garden is implemented. Do not insert any letter when you are prompted to input the number of flowers you want to pick/plant. Negative numbers should reprompt for valid integer. Lots of tests for the garden test suite were added. May not have an increased amount of functionality, but lots of focus on code cleanliness. 
+All functionality in the Garden location is implemented. Do not insert any letters when you are prompted to input the number of flowers you want to pick/plant. Negative numbers should reprompt for valid integer. 12 tests for the garden test suite were added. Lots of focus on code cleanliness. 
 
 The petting zoo is completely functional, letting the user pet and feed four animals. The code is clean, and there are 21 unit tests for the petting zoo. :)
 
-The basketball court is completely functional, the user can play a basketball game (generates a random score) or play horse (input distances for shots). Added more tests for iteration 3
+The basketball court is completely functional, the user can play a basketball game (generates a random score) or play horse (input distances for shots). Added more tests for iteration 3.
 
 The pool is completed, and the user can play a diving game with a UI made using JFrame, play a ring fetch minigame (text based), view a swimming simulator, and view pool information. More tests have been added in this iteration as well. Due to software limitations, the diving game doesn't work on WSL without external tools, so it prompts the user asking what OS they are using. All inputs are validated.
 
