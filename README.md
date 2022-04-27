@@ -21,7 +21,7 @@ All functionality in the Garden location is implemented. Do not insert any lette
 
 The petting zoo is completely functional, letting the user pet and feed four animals. The code is clean, and there are 21 unit tests for the petting zoo. :)
 
-The basketball court is completely functional, the user can play a basketball game (generates a random score) or play horse (input distances for shots). Added more tests for iteration 3.
+The basketball court is finished, the user can play a basketball game (generates a random score) or play horse (input distances for shots). Added more tests for iteration 3.
 
 The pool is completed, and the user can play a diving game with a UI made using JFrame, play a ring fetch minigame (text based), view a swimming simulator, and view pool information. More tests have been added in this iteration as well. Due to software limitations, the diving game doesn't work on WSL without external tools, so it prompts the user asking what OS they are using. All inputs are validated.
 
