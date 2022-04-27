@@ -27,6 +27,8 @@ public class DefinePool extends Location{
 	private double gameTimer;
 	private JFrame frame = new JFrame("Dive Simulator");
 	private DecimalFormat df = new DecimalFormat("#.##");
+	private boolean startAssembled = false;
+	private boolean runAssembled = false;
 	
 	
 	
@@ -171,12 +173,19 @@ public class DefinePool extends Location{
 		prompt();
 	}
 	
+	/**
+	 * Call initializers for each view of the diving game
+	 */
 	public void initializeComponents(Component[] frameComponents) {
 		initializeTitleComponents(frameComponents);
 		initializeInstructionComponents(frameComponents);
 		initializePlayComponents(frameComponents);
 	}
 	
+	/**
+	 * Initialize the components used on the title screen/view
+	 * @param frameComponents The UI Components used by the diving game
+	 */
 	public void initializeTitleComponents(Component[] frameComponents) {
 		frameComponents[0] = new JLabel("Diving Simulator",SwingConstants.CENTER);
 		frameComponents[0].setFont(frameComponents[0].getFont().deriveFont(48f)); 
@@ -184,6 +193,10 @@ public class DefinePool extends Location{
 		frameComponents[2]= new JButton("Exit");
 	}
 	
+	/**
+	 * Initialize the components used on the instructions screen/view
+	 * @param frameComponents The UI Components used by the diving game
+	 */
 	public void initializeInstructionComponents(Component[] frameComponents) {
 		frameComponents[3] = new JLabel("Press the run button as fast as you can to get a good jump!",SwingConstants.CENTER);
 		frameComponents[3].setFont(frameComponents[3].getFont().deriveFont(16f)); 
@@ -191,6 +204,10 @@ public class DefinePool extends Location{
 		frameComponents[6] = new JLabel("Game Over! Your final speed was " + gameScore + " mph, you jumped " + df.format(0.47*gameScore) +" feet in the air!",SwingConstants.CENTER) ;
 	}
 	
+	/**
+	 * Initialize the components used on the play screen/view
+	 * @param frameComponents The UI Components used by the diving game
+	 */
 	public void initializePlayComponents(Component[] frameComponents) {
 		frameComponents[5]= new JButton("Run!");
 		frameComponents[7] = new JLabel("Speed: " + gameScore + "MPH",SwingConstants.CENTER);
@@ -326,7 +343,9 @@ public class DefinePool extends Location{
 	}
 	
 
-	
+	/**
+	 * Prompt user regarding their operating system, if using windows do not load diving game due to WSL issues
+	 */
 	public void checkWindows() {
 		System.out.println("Are you using Windows Subsystem for Linux? Type yes or no.");
 		String[] validResponses = {"yes","no"};
@@ -389,6 +408,13 @@ public class DefinePool extends Location{
 		
 	}
 	
+	/**
+	 * Prompt the user for an integer and validate input
+	 * @param message A string to print before prompting user
+	 * @param low The lowest integer to consider valid
+	 * @param high The highest integer to consider valid
+	 * @return The validated integer the user responds with
+	 */
 	public int promptUserNum(String message, int low, int high) {
 		System.out.print(message);
 		while(!poolUserInput.hasNextInt()) {
@@ -403,10 +429,18 @@ public class DefinePool extends Location{
 		return input;
 	}
 	
+	/**
+	 * Pause for user input but do nothing with it. Useful for instruction prompts
+	 */
 	public void promptUserAny() {
 		String blank=poolUserInput.next();
 	}
 	
+	/**
+	 * Prompt the user for a string and validate input
+	 * @param validInput an array of strings which should be considered valid inputs
+	 * @return The validated String the user responds with
+	 */
 	public String promptUserString(String message,String[]validInput) {
 		System.out.print(message);
 		String input;
@@ -420,6 +454,9 @@ public class DefinePool extends Location{
 		}
 	}
 	
+	/**
+	 * Perform initiali setup for the JFrame used by the diving game
+	 */
 	public void assembleFrame() {
 		frame.setLayout(new GridLayout(3,1));
 		frame.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -428,6 +465,10 @@ public class DefinePool extends Location{
 		frame.setResizable(false);	
 	}
 	
+	/**
+	 * Reset JFrame and draw the title screen with necessary components & updates
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void assembleTitleScreen(Component[] frameComponents) {
 		frame.getContentPane().removeAll();
 		setTitleButtons(frameComponents);
@@ -437,6 +478,10 @@ public class DefinePool extends Location{
 		makeFrameValid();
 	}
 	
+	/**
+	 * Add listeners to the buttons on the title screen to perform necessary actions when clicked
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void setTitleButtons(Component[]frameComponents) {
 		JButton exitButton = (JButton)frameComponents[2];
 		exitButton.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){  frame.dispose(); }}); 
@@ -445,43 +490,72 @@ public class DefinePool extends Location{
 		public void actionPerformed(ActionEvent e){ assembleInstructionScreen(frameComponents); }}); 
 	}
 	
+	/**
+	 * Reset JFrame and draw the instructions screen with necessary components & updates
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void assembleInstructionScreen(Component[] frameComponents) {
 		frame.getContentPane().removeAll();
 		frame.add(frameComponents[3]);
         frame.add(frameComponents[4]);
-        JButton startButton = (JButton)frameComponents[4];
- 		startButton.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){ assemblePlayScreen(frameComponents); }}); 
+        if (!startAssembled) {
+        	startAssembled = true;
+        	JButton startButton = (JButton)frameComponents[4];
+        	startButton.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){ assemblePlayScreen(frameComponents); }}); 
+        }
 		makeFrameValid();
 	}
 	
+	/**
+	 * Schedule a repeating event to decrement the timer every 0.1 seconds, and display game over screen when timer runs out.
+	 * @param frameComponents an array of Components used by the diving game
+	 */
+
 	public void scheduleGameTimer(Component[]frameComponents) {
-        new java.util.Timer().scheduleAtFixedRate(new TimerTask(){
+		Timer t = new Timer();
+        t.scheduleAtFixedRate(new TimerTask(){
             @Override
             public void run() {
             	if (gameTimer<=0.11) {
-            		assembleGameOverScreen(frameComponents);
-            		cancel(); 		
+            		t.cancel();
+            		cancel();
+            		assembleGameOverScreen(frameComponents);	
             	}
             	decrementTimer(frameComponents);
             }
         },100,100); 
 	}
 	
+	/**
+	 * Update the timer data and text, called by the game's timer
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void decrementTimer(Component[] frameComponents) {
     	JLabel timerText = (JLabel)frameComponents[8];
     	timerText.setText(df.format(gameTimer));
         gameTimer-=0.1;
 	}
 	
+	/**
+	 * Reset JFrame and draw the play/game screen with necessary components & updates
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void assemblePlayScreen(Component[] frameComponents) {
 		 frame.getContentPane().removeAll();
 		 preparePlayComponents(frameComponents);
          scheduleGameTimer(frameComponents);
- 		 JButton runButton = (JButton)frameComponents[5];
- 		 runButton.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){ performRun(frameComponents); }}); 
+         if (!runAssembled) {
+        	 runAssembled=true;
+        	 JButton runButton = (JButton)frameComponents[5];
+        	 runButton.addActionListener(new ActionListener(){ public void actionPerformed(ActionEvent e){ performRun(frameComponents); }}); 
+         }
 		 makeFrameValid();
 	}
 	
+	/**
+	 * Call function to reset the data from last game and add components to frame for the play view
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void preparePlayComponents(Component[] frameComponents) {
         resetDiveGame(frameComponents);
         frame.add(frameComponents[7]);
@@ -489,6 +563,10 @@ public class DefinePool extends Location{
         frame.add(frameComponents[5]);
 	}
 	
+	/**
+	 * Reset the game's timer and score along with the score text.
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void resetDiveGame(Component[]frameComponents) {
         gameTimer=10;
         gameScore=0;
@@ -496,12 +574,20 @@ public class DefinePool extends Location{
         scoreText.setText("Speed: " + df.format(gameScore) + "MPH");
 	}
 	
+	/**
+	 * Called when user clicks the run button, adds 0.1 to the score/speed and updates the text on screen accordingly
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void performRun(Component[] frameComponents) {
          gameScore+=0.10;
          JLabel scoreText = (JLabel) frameComponents[7];
          scoreText.setText("Speed: " + df.format(gameScore) + "MPH");
 	}
 	
+	/**
+	 * Reset JFrame and draw the game over screen/view with necessary components & updates
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void assembleGameOverScreen(Component[] frameComponents) {
 		frame.getContentPane().removeAll();
  		prepareGameOverComponents(frameComponents);
@@ -509,7 +595,10 @@ public class DefinePool extends Location{
  		frame.add(frameComponents[2]);
 		makeFrameValid();
 	}
-	
+	/**
+	 * Prepare components used in the game over screen for display
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void prepareGameOverComponents(Component[] frameComponents) {
 		JLabel gameOverText = (JLabel)frameComponents[6];
  		gameOverText.setText("Game Over! Your final speed was " + df.format(gameScore) + " mph, you jumped " + df.format(0.47*gameScore) +" feet in the air!");
@@ -519,6 +608,10 @@ public class DefinePool extends Location{
  		frame.add(startButton);
 	}
 	
+	/**
+	 * Initialize a a scheduled action to enable to exit button on the game over screen, utilized to prevent accidental exits due to rapid input
+	 * @param frameComponents an array of Components used by the diving game
+	 */
 	public void scheduleExitButton(Component[] frameComponents) {
 		frameComponents[2].setEnabled(false);
  		new java.util.Timer().schedule(new TimerTask(){
@@ -529,6 +622,9 @@ public class DefinePool extends Location{
         },3000,3000); 
 	}
 	
+	/**
+	 * Validate and repaint the JFrame to make sure components are display correctly.
+	 */
 	public void makeFrameValid() {
 		frame.validate();
 		frame.repaint();
